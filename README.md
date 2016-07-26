@@ -1,4 +1,5 @@
 # DjangoCupcakeshop 파이콘장고튜토리얼
+   ![](cup_cake_1.jpg)
 
 > 이 튜토리얼은 Creative Commons Attribution-ShareAlike 4.0 International 저작권을 따르고 있습니다. 라이센스 전문은 http://creativecommons.org/licenses/by-sa/4.0 에서 확인하세요.
 
