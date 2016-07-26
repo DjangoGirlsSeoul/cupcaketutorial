@@ -8,6 +8,11 @@
 
 > 번역 : [이수진](http://sujinlee.me/), 이소은
 
+## Contributors 도움주신 분들
+
+장고걸스서울의 운영진과 코치들이 함께 튜토리얼을 준비했습니다
+Hassan Abid 하산 아비드, Jin Park 박진우, Soeun Lee 이소은,        Sujin Lee 이수진
+
 ## What will you learn from this tutorial? 튜토리얼에서 무엇을 배우게 되나요? 
 This tutorial will walk you through all the steps in creating a cupcake menu site. By the end, you'll be confident enough to make your website!
 ## Requirements 준비사항
