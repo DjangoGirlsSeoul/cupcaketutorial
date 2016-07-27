@@ -414,7 +414,7 @@ Now we have to connect base template with list and detail template.
 
 ```list.html```
 
-```
+```html
 {% extends 'menu/base.html' %}
 {% load staticfiles %}
 {% block content %}
@@ -484,7 +484,7 @@ Now we have to connect base template with list and detail template.
 
 ```detail.html```
 
-```
+```html
 {% extends 'menu/base.html' %}
 {% load staticfiles %}
 

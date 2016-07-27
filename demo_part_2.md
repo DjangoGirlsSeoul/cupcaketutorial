@@ -1,7 +1,12 @@
 # Demo Part 2
-## Step 9 [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
-	a. 쿼리셋
-	b. menu 목록 템플릿 보여주기
+## Step 9 Dynamic data in Templates with ORM [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
+>relevant git branch `orm`
+
+a. Get Dynamic data (cupcakes) from database using queryset. 
+``` Cupcakes.objects.all() ```
+
+a. 쿼리셋
+b. menu 목록 템플릿 보여주기
 
 ## Step 10 (프로그램 어플리케이션 확장하기)
 	a. menu에 템플릿 링크 만들기 그리고 Rest 상세 페이지에 뷰 추가하기
