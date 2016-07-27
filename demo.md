@@ -200,7 +200,7 @@ a. Django 뷰 만들기. 뷰는 views.py 파일 안에 있습니다. 우리는 v
 ## Step 8 (Django Templates 템플릿)
 
 a. If you closely look at the error in previous step, you will notice that is complaining about missing template `menu/list.html`. Django template is an html page where you show your data to user which was stored in database. First, create a directory called templates in your menu directory. Django will look for templates in there.
-Within the templates directory you have just created, create another directory called menu, and within that create a file called list.html. In other words, your template should be at menu/templates/menu/list.html. We will use bootstrap for creating html page.
+Within the templates directory you have just created, create another directory called menu, and within that create a file called list.html. In other words, your template should be at menu/templates/menu/list.html. We will use bootstrap for creating html page. You can find some example templates [here](http://getbootstrap.com/getting-started/). To customize our template we created a `style.css` file and added few nice images! For adding static files, create a folder `static` in menu directory. Then create a menu folder. In menu folder, create two folders to hold our css and image files. 
 
 ```html
 {% load staticfiles %}
@@ -210,12 +210,12 @@ Within the templates directory you have just created, create another directory c
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Django Cup Cake</title>
+	<title>Django Cupcake Shop</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="{% static 'rests/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
 </head>
 <body>
   <!-- Fixed navbar -->
@@ -228,18 +228,13 @@ Within the templates directory you have just created, create another directory c
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">Dinewithcode</a>
+        <a class="navbar-brand" href="/">Django Cupcake Shop</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Rating > 4</a></li>
-              <li><a href="#">Rating > 3</a></li>
-              <li><a href="#">Rating > 2</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">Rating</li>
               <li><a href="#">Highest</a></li>
               <li><a href="#">Lowest</a></li>
             </ul>
@@ -250,30 +245,31 @@ Within the templates directory you have just created, create another directory c
   </nav>
 
 
-  <div class="container">
+  <div class="container" >
 
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <h1>MS Open Community Camp</h1>
+    <div class="jumbotron title text-center" style="background-image: url({% static 'menu/images/cupcake_cover.jpg' %});">
+      <h1 class="title">Cupcakes and High Fives!</h1>
       <p>Django Girls Seoul welcomes you!</p>
       <p>Lets build an awesome Django site together</p>
       <p>
-        <a class="btn btn-lg btn-primary" href="https://github.com/djangogirlscodecamp/msopencamptutorial" role="button">Source Code &raquo;</a>
+        <a class="btn btn-lg btn-primary" href="https://github.com/DjangoGirlsSeoul/djangocupcakeshop" role="button">Source Code &raquo;</a>
       </p>
     </div>
 
   </div> <!-- /container -->
 
   <div class="container">
+    <h2 class="text-center">Choose your favorite Cupcake!</h2>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card">
         <div class="card-img-top">
-          <div class="image" style="background-image: url(https://irs3.4sqi.net/img/general/455x300/gaZ_0lBT64bsuWBAxNkIGjtn-ith4wKKo0liYG2TMgk.jpg);"></div>
+          <div class="image" style="background-image: url({% static 'menu/images/chocolate_cupcake.jpg' %});"></div>
         </div>
         <div class="card-block">
-          <h4 class="card-title text-center">Mr. Pizza</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-info btn-lg">
+          <h4 class="card-title text-center">Chocolate Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
           </button></p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
@@ -283,12 +279,12 @@ Within the templates directory you have just created, create another directory c
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-img-top">
-          <div class="image" style="background-image: url(https://irs0.4sqi.net/img/general/455x300/3159655_4ZLHIG_t7guSX5XAlZgHSpyM449YCvFY5G_Rjd4nYto.jpg);"></div>
+          <div class="image" style="background-image: url({% static 'menu/images/vanilla_cupcake.jpeg' %});"></div>
           </div>
         <div class="card-block">
-          <h4 class="card-title text-center">스시겐 (sushi Gen)</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-info btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
+          <h4 class="card-title text-center">Vanilla Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 4
           </button></p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
@@ -297,11 +293,11 @@ Within the templates directory you have just created, create another directory c
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="card">
           <div class="card-img-top">
-          <div class="image" style="background-image: url(https://irs1.4sqi.net/img/general/455x300/TWS95DUWj75QdpOsT7k6riA4w7vAb0TRpde5dzUmKQ0.jpg);"></div>
+          <div class="image" style="background-image: url({% static 'menu/images/blueberry_cupcake.png' %});"></div>
           </div>
         <div class="card-block">
-          <h4 class="card-title text-center">BBQ Chicken Cafe</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-info btn-lg">
+          <h4 class="card-title text-center">Blueberry Cookie Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
               <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
           </button></p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
@@ -311,6 +307,11 @@ Within the templates directory you have just created, create another directory c
     </div>
   </div>
 
+  <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Pycon 2016 Tutorial.</p>
+      </div>
+    </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
 
@@ -318,6 +319,9 @@ Within the templates directory you have just created, create another directory c
 </html>
 
 ```
+b. We have to create a detail page for our `cupcake` where we can show more information such as price and user who uploaded it. Let's create a `detail.html` in the same folder as `list.html`
+
+
 
 a. Bootstrap 사용하고 menu list 템플릿 만들기
 b. Bootstrap 사용하고 menu detail 템플릿 만들기
