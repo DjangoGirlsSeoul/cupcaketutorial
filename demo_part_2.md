@@ -2,9 +2,31 @@
 ## Step 9 Dynamic data in Templates with ORM [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
 >relevant git branch `orm`
 
-a. Get Dynamic data (cupcakes) from database using queryset. 
-``` Cupcakes.objects.all() ```
+a. Get Dynamic data (cupcakes) from database using queryset. Add following code in `menu/views.py` in `cupcake_list` function.
 
+```python
+from django.shortcuts import render
+from .models import Cupcake
+
+def cupcake_list(request):
+    cakes = Cupcake.objects.all().order_by('-createdAt')
+    context = {"cakes": cakes}
+    return render(request,"menu/list.html",context)
+    ```
+
+Above query `Cupcake.objects.all().order_by('-createdAt')` will fetch all the cupcakes from the database in descending order with respect to `createdAt`.
+
+> That code loads the template called menu/list.html and passes it a context. The `context` is a dictionary mapping template variable names to Python objects.
+
+If we visit the home page, we cannot see the data from database in template. Time to go back to our template and display this QuerySet!
+
+b. We will use Django Template Tags to add data from our queryset to template. We will remove the hard-coded cupcakes and replace it with following. 
+
+`list.html`
+
+```html
+
+```
 a. 쿼리셋
 b. menu 목록 템플릿 보여주기
 

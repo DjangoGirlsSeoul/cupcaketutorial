@@ -101,10 +101,16 @@ class Cupcake(models.Model):
         return self.name
         
         ```
- c. After creating model, we create actual tables in database by using `python manage.py makemigrations menu` and `python manage.py migrate`. 
- > Note that `makemigrations` command creates the script in `djangocupcakeshop/menu/migrations` folder which should be executed using `migrate command`
- > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
+ c. After creating model, we create actual tables in database by  executing following commands 
  
+ ```bash
+ $ python manage.py makemigrations menu
+ $ python manage.py migrate
+ ``` 
+ 
+ > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
+ > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
+ > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
 
 #### 데모 여기부터 
 
@@ -144,7 +150,7 @@ b. Now its time to add few cupcakes from the site. But in order to do so, you wo
 python manage.py createsuperuser
 ```
 
-Start server again `python manage.py runserver`. Visit [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) to login and add cupcakes!
+Start developement server again `python manage.py runserver`. Visit [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) to login and add cupcakes!
 
 ![](admin_1_main.png)
 
@@ -319,7 +325,67 @@ Within the templates directory you have just created, create another directory c
 </html>
 
 ```
+We also need a css file for minor adjustments in the template. Create  file `style.css` in `menu/static/menu/css` folder. Add following contents to css file 
+`style.css`
 
+```css
+ @import url(http://fonts.googleapis.com/css?family=Raleway:400,800|Roboto+Slab:300);
+
+
+body {
+  font-family: Roboto Slab;
+  /*min-height: 2000px;*/
+  padding-top: 70px;
+}
+
+.card {
+  margin: 2rem auto;
+}
+.image {
+  width: 100%;
+  height: 250px;
+  padding-bottom: 50%;
+  transition: 0.1s linear;
+  background-image: url(http://www.freeallimages.com/wp-content/uploads/2014/09/space-cat-wallpaper-5.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.card-title {
+  margin-bottom: 1rem;
+  font-family: Raleway;
+  font-weight: 900;
+}
+
+.jumbotron {
+  height: 450px;
+}
+
+.title {
+  color: white !important;
+
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 150px;
+  text-align: center;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.text-muted {
+  margin-top: 20px;
+}
+
+```
+In `menu/static/images` folder, add three cupcakes images and make sure that names are same as the ones in `list.html` file.
 
 b. We have to create a detail page for our `cupcake` where we can show more information such as price and user who uploaded it. Let's create a `detail.html` in the same folder as `list.html`
 

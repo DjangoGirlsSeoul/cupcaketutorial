@@ -1,4 +1,4 @@
-# DjangoCupcakeshop 파이콘장고튜토리얼
+# Django Cupcake shop 파이콘장고튜토리얼
 
 ![](http://66.media.tumblr.com/3d6a31f762235a08c4a72ddb96f27541/tumblr_inline_ns1to5OQuZ1rlmf6c_500.jpg)
    ####### cc. [Django Girls Blog](http://blog.djangogirls.org/post/125007638798/europython2015)
