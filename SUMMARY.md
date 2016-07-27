@@ -2,5 +2,6 @@
 
 * [Introduction](README.md)
 * [Getting Started](getting_started.md)
-* [Demo](demo.md)
+* [Demo Part 1](demo.md)
+* [Demo Part 2](demo_part_2.md)
 

@@ -1,4 +1,4 @@
-# Demo 데모
+# Demo Part 1 데모
 ## Step 1 Installation [설치하기](http://tutorial.djangogirls.org/ko/deploy/#git-저장소-만들기)
  Make sure that you have installed Python 3.5.x, Git and Editor (atom,sublime text or visual code). 
 Before starting our project we setup virtual environment, activate it and then install django using 
@@ -319,39 +319,203 @@ Within the templates directory you have just created, create another directory c
 </html>
 
 ```
+
+
 b. We have to create a detail page for our `cupcake` where we can show more information such as price and user who uploaded it. Let's create a `detail.html` in the same folder as `list.html`
 
+```html 
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Django Cupcake Shop</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
+</head>
+<body>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Django Cupcake Shop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Highest</a></li>
+              <li><a href="#">Lowest</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="text-center">Order Cupcake</h2>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-md-offset-2 col-md-lg-2">
+        <div class="card">
+        <div class="card-img-top">
+          <div class="image" style="background-image: url({% static 'menu/images/chocolate_cupcake.jpg' %});"></div>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <div class="card">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  Chocolate Cupcake</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span> 3.00</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-star"></span> 5</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> John</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> 3rd June, 2015</li>
+          <li class="list-group-item">  <a href="#" class="btn btn-primary btn-block">Order</a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Pycon 2016 Tutorial.</p>
+      </div>
+    </footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+</body>
+</html>
+
+```
+
+C. We can observe that both `list.html` and `base.html` share lots of common html such as header and footer. Django allows us to create `base` template and extend other templates from it. Create a `base.html` in same folder with `list.html`. And put the `list.html` contents in it. Delete the part from `<div class="container">` until just before the `footer` and replace with 
+
+```python
+  {% block content %}
+    {% endblock %}
+```
+
+Now we have to connect base template with list and detail template. 
+
+```list.html```
+```html 
+{% extends 'menu/base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron title text-center" style="background-image: url({% static 'menu/images/cupcake_cover.jpg' %});">
+      <h1 class="title">Cupcakes and High Fives!</h1>
+      <p>Django Girls Seoul welcomes you!</p>
+      <p>Lets build an awesome Django site together</p>
+      <p>
+        <a class="btn btn-lg btn-primary" href="https://github.com/DjangoGirlsSeoul/djangocupcakeshop" role="button">Source Code &raquo;</a>
+      </p>
+    </div>
+
+  </div> <!-- /container -->
+
+  <div class="container">
+    <h2 class="text-center">Choose your favorite Cupcake!</h2>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="card">
+        <div class="card-img-top">
+          <div class="image" style="background-image: url({% static 'menu/images/chocolate_cupcake.jpg' %});"></div>
+        </div>
+        <div class="card-block">
+          <h4 class="card-title text-center">Chocolate Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
+          </button></p>
+          <a href="#" class="btn btn-default btn-lg btn-block">View</a>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="card-img-top">
+          <div class="image" style="background-image: url({% static 'menu/images/vanilla_cupcake.jpeg' %});"></div>
+          </div>
+        <div class="card-block">
+          <h4 class="card-title text-center">Vanilla Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 4
+          </button></p>
+          <a href="#" class="btn btn-default btn-lg btn-block">View</a>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class="card">
+          <div class="card-img-top">
+          <div class="image" style="background-image: url({% static 'menu/images/blueberry_cupcake.png' %});"></div>
+          </div>
+        <div class="card-block">
+          <h4 class="card-title text-center">Blueberry Cookie Cupcake</h4>
+          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
+          </button></p>
+          <a href="#" class="btn btn-default btn-lg btn-block">View</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+```
+
+```detail.html```
+```html
+{% extends 'menu/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="text-center">Order Cupcake</h2>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-md-offset-2 col-md-lg-2">
+        <div class="card">
+        <div class="card-img-top">
+          <div class="image" style="background-image: url({% static 'menu/images/chocolate_cupcake.jpg' %});"></div>
+        </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <div class="card">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  Chocolate Cupcake</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span> 3.00</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-star"></span> 5</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> John</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> 3rd June, 2015</li>
+          <li class="list-group-item">  <a href="#" class="btn btn-primary btn-block">Order</a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+{% endblock %}
+
+```
 
 
 a. Bootstrap 사용하고 menu list 템플릿 만들기
 b. Bootstrap 사용하고 menu detail 템플릿 만들기
 c. 템플릿 확장하기
-
-## Step 9 [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
-	a. 쿼리셋
-	b. menu 목록 템플릿 보여주기
-
-## Step 10 (프로그램 어플리케이션 확장하기)
-	a. menu에 템플릿 링크 만들기 그리고 Rest 상세 페이지에 뷰 추가하기
-	b. 다시한번 배포 하기
-
-## Step 11 [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
-	a. PythonAnywhere에서 무료 계정인 "초보자(Beginner)"로 회원가입 하세요. GitHub에서 PythonAnywhere로 코드 가져오기
-	b. PythonAnywhere에서 가상환경(virtualenv) 생성하기. 콘솔창에서 `virtualenv --python=python3.4 myvenv` 그리고 `pip install -r requirements.txt` 실행하세요.정적 파일 모으기 `python manage.py collectstatic`
-	c. PythonAnywhere에서 데이터베이스 생성하기 `python manage.py migrate`
-	d. web app으로 DjangoCupcakeshop 배포하기 - 가상환경(virtualenv) 설정하기 그리고 WSGI 파일 설정하기
-
-
-## Step 12 (Django 폼)
-	a. 이제 한 가지만 더 하면 웹사이트가 완성되어요. 바로 식당을 추가하거나 수정하는 멋진 기능을 추가하는 것이죠. 폼과 페이지 링크 만들기
-	b. 폼과 링크를 연결하고 저장된 폼에 View 메소드를 추가하기
-	c. 폼 보안
-	d. 폼 수정하기- 한 가지만 더: 배포하세요
-
-## Step 13 (숙제)
-	a. '점수' 목록 배열하기
-	b. '가격' 목록 배열하기
-
-## Step 14 (Extended)
-
-
