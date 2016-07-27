@@ -1,5 +1,7 @@
 # DjangoCupcakeshop 파이콘장고튜토리얼
-   ![](cup_cake_1.jpg)
+
+![](http://66.media.tumblr.com/3d6a31f762235a08c4a72ddb96f27541/tumblr_inline_ns1to5OQuZ1rlmf6c_500.jpg)
+   ####### cc. [Django Girls Blog](http://blog.djangogirls.org/post/125007638798/europython2015)
 
 > 이 튜토리얼은 Creative Commons Attribution-ShareAlike 4.0 International 저작권을 따르고 있습니다. 라이센스 전문은 http://creativecommons.org/licenses/by-sa/4.0 에서 확인하세요.
 
