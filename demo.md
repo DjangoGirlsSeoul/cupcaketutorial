@@ -413,7 +413,8 @@ C. We can observe that both `list.html` and `base.html` share lots of common htm
 Now we have to connect base template with list and detail template. 
 
 ```list.html```
-```html 
+
+```
 {% extends 'menu/base.html' %}
 {% load staticfiles %}
 {% block content %}
@@ -482,7 +483,8 @@ Now we have to connect base template with list and detail template.
 ```
 
 ```detail.html```
-```html
+
+```
 {% extends 'menu/base.html' %}
 {% load staticfiles %}
 
@@ -514,7 +516,6 @@ Now we have to connect base template with list and detail template.
 {% endblock %}
 
 ```
-
 
 a. Bootstrap 사용하고 menu list 템플릿 만들기
 b. Bootstrap 사용하고 menu detail 템플릿 만들기
