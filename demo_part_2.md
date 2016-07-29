@@ -134,10 +134,135 @@ a. menu에 템플릿 링크 만들기 그리고 menu 상세 페이지에 뷰 추
 ## Step 11 (Django Forms 폼)
 > Relevant branch `forms`
 
-	a. 이제 한 가지만 더 하면 웹사이트가 완성되어요. 바로 식당을 추가하거나 수정하는 멋진 기능을 추가하는 것이죠. 폼과 페이지 링크 만들기
-	b. 폼과 링크를 연결하고 저장된 폼에 View 메소드를 추가하기
-	c. 폼 보안
-	d. 폼 수정하기- 한 가지만 더: 배포하세요
+The final thing we want to do on our website is create a nice way to add cupcakes by registered users. Django's admin is cool, but it is rather hard to customize and make pretty. With forms we will have absolute power over our interface - we can do almost anything we can imagine!
+
+a. Create a new file `forms.py` in menu directory. We are going to use `ModelForm` which allows us to create a form from already created model. Add following code to your `forms.py`
+
+```python
+
+from django import forms
+from .models import Cupcake
+
+
+class CupcakeForm(forms.ModelForm):
+
+    class Meta:
+        model = Cupcake
+        fields = ('name','rating','price','image')
+
+```
+>Note that we have excluded couple of fields like `createdAt` and `writer`. Actually we can set them up while saving the form. We will get back it shortly.
+
+Let's add a new url for our form in `menu/urls.py`. Add below code after `    url(r'^cupcake/(?P<pk>\d+)/$',views.cupcake_detail,name="cupcake_detail"),
+`
+
+```python
+    url(r'^cupcake/new/$', views.cupcake_new, name='cupcake_new'),
+
+```
+
+b. Now we have the form and added it to the url. All we need to do is to create a template and add function in view. Start by adding a `+` navigation button to your `base.html` template. Add following code just before `<li class="dropdown">`.
+
+```html
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'cupcake_new' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
+     {% endif %}
+```
+> This `{% if %}` will cause the link to only be sent to the browser if the user requesting the page is logged in. This doesn't protect the creation of new posts completely, but it's a good first step.
+
+Create a new html file `cupcake_new.html` in `menu/templates/menu` directory. Add following content to it. 
+
+`cupcake_new.html`
+```html
+{% extends 'menu/base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron title text-center" style="height: 200px;">
+      <h1 style="color:black;">Add new Cupcake!</h1>
+    </div>
+
+  </div> <!-- /container -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-offset-2 col-lg-offset-3 col-md-4 col-lg-4">
+        <h2 class="text-center">Fill in details and submit</h2>
+      <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="form-group">
+          <label for="{{ form.name.id_for_label }}">Name</label>
+          <input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" placeholder="blueberry Cupcake etc.">
+          {{ form.name.errors }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.rating.id_for_label }}">Rating</label>
+          <input type="text" class="form-control" id="{ form.rating.id_for_label }}" name="{{ form.rating.html_name }}" placeholder="1-5">
+          {{ form.rating.errors }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.price.id_for_label }}">Price</label>
+          <input type="text" class="form-control" id="{{ form.price.id_for_label }}" name="{{ form.price.html_name }}" placeholder="$ 2.00">
+          {{ form.price.errors }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.image.id_for_label }}">Image</label>
+          <input type="file" id="{{ form.image.id_for_label }}" name="{{ form.image.html_name }}">
+          <p class="help-block">Attach an image of size of atleast 360w x 250h</p>
+          {{ form.image.errors }}
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+    </div>
+  </div>
+{% endblock %}
+
+```
+There is a simple way to add form in template too. Just add ` {{ form.as_p }}` in between `<form></form>`. However, we can also add manually (as above template) if we like.
+
+c. If you try to start development server, it will give an error. That's because we haven't added a view yet. Open `menu/views.py` file and add following lines with rest of the `from` rows.
+
+```python
+from django.shortcuts import redirect
+from .forms import CupcakeForm
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
+```
+
+and view function.
+
+```python
+@login_required
+def cupcake_new(request):
+    if request.method == "POST":
+        print("here - ")
+        form = CupcakeForm(request.POST,request.FILES)
+        if form.is_valid():
+            print("here - 2")
+            cake = form.save(commit=False)
+            cake.createdAt = timezone.now()
+            cake.writer = request.user
+            cake.save()
+            print("here ---")
+            return redirect('cupcake_detail',pk=cake.pk)
+    else:
+        form = CupcakeForm()
+    context = {'form':form}
+    return render(request,"menu/cupcake_new.html",context)
+```
+
+> `@login_required`will make sure that only logged in user can save the new cupcake. 
+
+Let's see if it works. Go to the page [http://127.0.0.1:8000/cupcake/new/](http://127.0.0.1:8000/cupcake/new/), add name,rating, price and image, submit it... and voilà! The new cupcake is added and we are redirected to cupcake_detail page!
+
+![](forms_1.png)
+
+Congrats :) We are almost done with development of our site! 
+
+Finally, it's time to have cupcake. There is one more thing that we have to do. So hang in there...
     
 ## Step 12 Deploy your site on PythonAnywhere [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
 
@@ -155,8 +280,10 @@ db.sqlite3
 .DS_Store
 media/
 ```
-## Security for Production 
+### Security for Production 
 > Follow this [link](https://github.com/espern/espern.github.io-source/blob/master/content/home/en-securing-your-django-settings-on-github.md) 
+
+#### Publish on Github
 
 Do `git status` to check the current status. We will add all the files and save our changes
 
@@ -257,12 +384,12 @@ We're all done! Hit the big green Reload button and you'll be able to go view yo
 	d. web app으로 DjangoCupcakeshop 배포하기 - 가상환경(virtualenv) 설정하기 그리고 WSGI 파일 설정하기
 
 
+## Step 13 Homework (숙제)
+a. Show cupcakes by `highest` and `lowest` rating
+b. Show cupcakes by `highest` and `lowest` price
 
-## Step 13 Security and Production Site 
-
-## Step 14 Homework (숙제)
-	a. '점수' 목록 배열하기
-	b. '가격' 목록 배열하기
+a. '점수' 목록 배열하기
+b. '가격' 목록 배열하기
 
 
 
