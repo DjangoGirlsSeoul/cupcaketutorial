@@ -168,7 +168,7 @@ b. Now we have the form and added it to the url. All we need to do is to create 
       <li><a href="{% url 'cupcake_new' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
      {% endif %}
 ```
-> This `{% if %}` will cause the link to only be sent to the browser if the user requesting the page is logged in. This doesn't protect the creation of new posts completely, but it's a good first step.
+> This `{% if user.is_authenticated %}` will cause the link to only be sent to the browser if the user requesting the page is logged in. This doesn't protect the creation of new posts completely, but it's a good first step.
 
 Create a new html file `cupcake_new.html` in `menu/templates/menu` directory. Add following content to it. 
 
