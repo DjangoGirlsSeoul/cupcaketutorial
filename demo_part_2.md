@@ -238,15 +238,12 @@ and view function.
 @login_required
 def cupcake_new(request):
     if request.method == "POST":
-        print("here - ")
         form = CupcakeForm(request.POST,request.FILES)
         if form.is_valid():
-            print("here - 2")
             cake = form.save(commit=False)
             cake.createdAt = timezone.now()
             cake.writer = request.user
             cake.save()
-            print("here ---")
             return redirect('cupcake_detail',pk=cake.pk)
     else:
         form = CupcakeForm()
@@ -282,6 +279,40 @@ media/
 ```
 ### Security for Production 
 > Follow this [link](https://github.com/espern/espern.github.io-source/blob/master/content/home/en-securing-your-django-settings-on-github.md) 
+
+#### Django secret key
+Open your `settings.py` file. You will find `secret key`
+
+```python
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '(+73cf=j*8!=r$#2à^@ibgpw8yn9pm#wa42bk&amp;v(@*%m7nx1sg'
+```
+We are hosting our website on Github. So everyone can see the secret key. One way to avoid this is by making two separate `settings.py` file for development and production server. But it will really be a pain to maintain both. 
+
+We will use `Environment Variables` on PythonAnywhere to store our `database password` and `SECRET_KEY`.  Before doing this, we have to change our `settings.py` file to replace `secret_key` with some dummy value. We will also make sure that `DEBUG=False` for production version. Replace the `DEBUG=True`, `SECRET_KEY` and `ALLOWED_HOSTS` code with following.
+
+```python
+DEBUG = os.getenv('DJANGO_DEBUG') != 'FALSE'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = 'Hell@World!'
+else:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['djangocupcakeshop.pythonanywhere.com']
+    
+```
+
+`os.getenv('DJANGO_DEBUG')` is an environment variable which we will add on PythonAnywhere later. 
+
+> We are making sure that our secret key is not Github! We are also making `DEBUG=False` for your production site.PythonAnywhere related code is in the next section.
+
 
 #### Publish on Github
 
@@ -368,11 +399,14 @@ if path not in sys.path:
     sys.path.append(path)
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'djanocupcakeshop.settings'
+os.environ['DEBUG'] = 'FALSE'
+os.environ['SECRET_KEY'] = 'MY_SECRET_KEY'
 
 from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler
 application = StaticFilesHandler(get_wsgi_application())
 ```
+> Replace `MY_SECRET_KEY` with your secret key!
 
 We're all done! Hit the big green Reload button and you'll be able to go view your application. You'll find a link to it at the top of the page.
 
