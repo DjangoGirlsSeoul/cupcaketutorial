@@ -1,5 +1,6 @@
 # Demo Part 1 데모
-## Step 1 Installation [설치하기](http://tutorial.djangogirls.org/ko/deploy/#git-저장소-만들기)
+## Step 1 Installation 설치하기
+
  Make sure that you have installed Python 3.5.x, Git and Editor (atom,sublime text or visual code). 
 Before starting our project we setup virtual environment, activate it and then install django using 
  
@@ -9,7 +10,8 @@ Before starting our project we setup virtual environment, activate it and then i
  Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
  
  ```bash
- $ pip freeze > requirements.txt```
+ $ pip freeze > requirements.txt
+ ```
  
 가상환경 사용하고 장고 설치하기 
 
@@ -28,7 +30,8 @@ Before starting our project we setup virtual environment, activate it and then i
  Django 프로젝트 시작하기 
  
  ```bash
- $ django-admin startproject djangocupcakeshop```
+ $ django-admin startproject djangocupcakeshop
+ ```
 
 ## Step 3 (Change Settings/설정 변경)
 After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
@@ -45,7 +48,7 @@ To setup the correct configuration for static files (images, css, javascript), a
 TIME_ZONE = "Asia/Seoul"
 ```
 
-Finally, we are all set for creating our database tables and checking our project in the browser. Run the following two commands in terminal/command prompt.
+We are all set for creating our database tables and checking our project in the browser. Run the following two commands in terminal/command prompt.
 
 ``` bash
 $ python manage.py migrate
@@ -86,7 +89,16 @@ $ python manage.py startapp menu```
 
 #### Demo starts from here
 
-b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,ratings,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by `pip install Pillow` and then update requirements file by `pip freeze > requirements.txt`
+b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by `pip install Pillow` and then update requirements file by `pip freeze > requirements.txt`
+
+The import part will go first 
+
+```python
+from django.contrib.auth.models import User
+from django.utils import timezone
+```
+
+followed by model Class
 
 ```python
 class Cupcake(models.Model):
@@ -115,7 +127,7 @@ class Cupcake(models.Model):
 #### 데모 여기부터 
 
 b. `Cupcake` 글 모델 만들기 속성:
-`name,ratings,price,image,writer and createdAt` fields
+`name,rating,price,image,writer and createdAt` fields
 
 ```python
 class Cupcake(models.Model):
@@ -133,7 +145,7 @@ class Cupcake(models.Model):
 
 c. 데이터베이스에 모델을 위한 테이블 만들기 `python manage.py makemigrations menu` 그리고 `python manage.py migrate` 실행하세요
 
-## Step 5 [Django Admin 관리자](http://tutorial.djangogirls.org/en/django_admin/#django-admin)
+## Step 5 Django Admin 관리자
 > Relevant git branch `admin`
 
 a. Register our model in admin so that we can add cupcakes from admin site. Open `menu/admin.py` file and add the following.
@@ -163,14 +175,18 @@ b. 로그인을 하기 위해서는, 모든 권한을 가지는 슈퍼유저(sup
 ## Step 6 (Django Urls)
 > Relevant git branch `django-urls`
 
-a. We have to point a url towards our home page. Firstly, we will point the home page URL to our menu app. Add following to `djangocupcakeshop/urls.py` in `urlpatterns` list after first entry 
+a. We have to point a url towards our home page. Firstly, we will point the home page URL to our menu app. Add following to `djangocupcakeshop/urls.py`.
 
 ```python 
-url(r'', include('rests.urls')), 
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'', include('menu.urls')),
+]
+
 ```
 
 
-b. Secondly, we will point URL to corresponding `view` function in our menu app. Create a file in `menu` folder and name it `urls.py`. Add following code
+b. Secondly, we will point URL to corresponding `view` function in our menu app. Create a file in `menu` directory and name it `urls.py`. Add following code
 
 ```python
 from django.conf.urls import url
@@ -180,14 +196,14 @@ urlpatterns = [
     url(r'^$',views.cupcake_list,name="cupcake_list"),
 ]
 ```
-For now if you run your server and visit the home page, It will show an error. If you pay attention closely to the error, it is about absence of views function `cupcake_list`. Don't worry, we will create this function in the next step.
+For now if you run your server and visit the home page, It will show an error. If you pay attention to the error, it is about absence of views function `cupcake_list`. Don't worry, we will create this function in the next step.
 
 ![](urls_error.png)
 
 a. 첫 번째 URL을 만들어 봅시다! 우리는 'http://127.0.0.1:8000/'가 홈페이지 주소로 만들어 글 목록이 보이게 만들어 볼 거에요.
 
 ## Step 7 (Django Views 뷰)
-a. In Django, web pages and other content are delivered by views. Each view is represented by a simple Python function. Django will choose a view by examining the URL that’s requested. We have already added `url` for home page in previous step. We are going to add our first view function `cupcakes_list` in `menu/views.py` file.
+In Django, web pages and other content are delivered by views. Each view is represented by a simple Python function. Django will choose a view by examining the URL that’s requested. We have already added `url` for home page in previous step. We are going to add our first view function `cupcakes_list` in `menu/views.py` file.
 
 ```python
 from django.shortcuts import render
@@ -197,16 +213,18 @@ def cupcake_list(request):
     return render(request,"menu/list.html",{})
 ```
 
-Start your server and visit the home page. Oops! You will come across following error!. Let's fix this in next step.
+Start your server and visit the home page [http://127.0.0.1:8000](http://127.0.0.1:8000) Oops! You will come across following error!. Let's fix this in next step.
 
 ![](views_error.png)
 
-a. Django 뷰 만들기. 뷰는 views.py 파일 안에 있습니다. 우리는 views 를 menu/views.py 파일 안에 추가할 거에요.
+ Django 뷰 만들기. 뷰는 views.py 파일 안에 있습니다. 우리는 views 를 menu/views.py 파일 안에 추가할 거에요.
 
 ## Step 8 (Django Templates 템플릿)
 
-a. If you closely look at the error in previous step, you will notice that is complaining about missing template `menu/list.html`. Django template is an html page where you show your data to user which was stored in database. First, create a directory called templates in your menu directory. Django will look for templates in there.
-Within the templates directory you have just created, create another directory called menu, and within that create a file called list.html. In other words, your template should be at menu/templates/menu/list.html. We will use bootstrap for creating html page. You can find some example templates [here](http://getbootstrap.com/getting-started/). To customize our template we created a `style.css` file and added few nice images! For adding static files, create a folder `static` in menu directory. Then create a menu folder. In menu folder, create two folders to hold our css and image files. 
+a. If you look at the error in previous step, you will notice that is complaining about missing template `menu/list.html`. Django template is an html page where you show your data to user which was stored in database. First, create a directory called templates in your menu directory. Django will look for templates in there.
+Within the templates directory you have just created, create another directory called menu, and within that create a file called list.html. In other words, your template should be at menu/templates/menu/list.html. We will use bootstrap for creating html page. You can find some example templates [here](http://getbootstrap.com/getting-started/). To customize our template we created a `style.css` file and added few nice images! You can find free cupcake images from [here](https://www.pexels.com/search/cupcake/). For adding static files, create a folder `static` in menu directory. Then create a menu folder. In menu folder, create two folders to hold our css and image files. So your directory sturcture for css will be `menu/static/menu/css` and images `menu/static/menu/images`
+
+`list.html`
 
 ```html
 {% load staticfiles %}
@@ -275,9 +293,13 @@ Within the templates directory you have just created, create another directory c
         </div>
         <div class="card-block">
           <h4 class="card-title text-center">Chocolate Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
-          </button></p>
+            <p class="card-text text-center">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -289,9 +311,12 @@ Within the templates directory you have just created, create another directory c
           </div>
         <div class="card-block">
           <h4 class="card-title text-center">Vanilla Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 4
-          </button></p>
+          <p class="card-text text-center">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -303,9 +328,11 @@ Within the templates directory you have just created, create another directory c
           </div>
         <div class="card-block">
           <h4 class="card-title text-center">Blueberry Cookie Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
-          </button></p>
+          <p class="card-text text-center">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -333,8 +360,7 @@ We also need a css file for minor adjustments in the template. Create  file `sty
 
 
 body {
-  font-family: Roboto Slab;
-  /*min-height: 2000px;*/
+  font-family: "Roboto Slab","Helvetica", "Arial", sans-serif;;
   padding-top: 70px;
 }
 
@@ -353,7 +379,6 @@ body {
 
 .card-title {
   margin-bottom: 1rem;
-  font-family: Raleway;
   font-weight: 900;
 }
 
@@ -384,6 +409,21 @@ body {
   margin-top: 20px;
 }
 
+.glyphicon
+{
+  color:#FF5252;
+}
+
+/* navbar */
+.navbar-default {
+    border-color: #FF5252;
+}
+
+a {
+  color: #FF5252;
+}
+
+ 
 ```
 In `menu/static/images` folder, add three cupcakes images and make sure that names are same as the ones in `list.html` file.
 
@@ -431,31 +471,47 @@ b. We have to create a detail page for our `cupcake` where we can show more info
     </div>
   </nav>
 
-  <div class="container">
-    <h2 class="text-center">Order Cupcake</h2>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-md-offset-2 col-md-lg-2">
-        <div class="card">
-        <div class="card-img-top">
-          <div class="image" style="background-image: url({% static 'menu/images/chocolate_cupcake.jpg' %});"></div>
-        </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
           <div class="card">
         <ul class="list-group">
-          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  Chocolate Cupcake</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  <strong>Chocolate Cupcake</strong></li>
           <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span> 3.00</li>
-          <li class="list-group-item"><span class="glyphicon glyphicon-star"></span> 5</li>
           <li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> John</li>
           <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> 3rd June, 2015</li>
-          <li class="list-group-item">  <a href="#" class="btn btn-primary btn-block">Order</a></li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+          </li>
+          <li class="list-group-item">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Order
+            </button>
+             </li>
         </ul>
       </div>
     </div>
     </div>
   </div>
-
+  <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Chocolate Cupcake</h4>
+      </div>
+      <div class="modal-body">
+        Complete this website to get your Cupcake!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
   <footer class="footer">
       <div class="container">
         <p class="text-muted">Pycon 2016 Tutorial.</p>
@@ -474,6 +530,68 @@ C. We can observe that both `list.html` and `base.html` share lots of common htm
 ```python
   {% block content %}
     {% endblock %}
+```
+
+After replacing, your `base.html` will look like as follows :
+
+```html
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Django Cupcake Shop</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'menu/css/style.css' %}">
+</head>
+<body>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Django Cupcake Shop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort by <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Highest</a></li>
+              <li><a href="#">Lowest</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+    {% block content %}
+    {% endblock %}
+
+  <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Pycon 2016 Tutorial.</p>
+      </div>
+    </footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+</body>
+</html>
+
+
+
 ```
 
 Now we have to connect base template with list and detail template. 
@@ -508,9 +626,13 @@ Now we have to connect base template with list and detail template.
         </div>
         <div class="card-block">
           <h4 class="card-title text-center">Chocolate Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
-          </button></p>
+            <p class="card-text text-center">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -522,9 +644,12 @@ Now we have to connect base template with list and detail template.
           </div>
         <div class="card-block">
           <h4 class="card-title text-center">Vanilla Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 4
-          </button></p>
+          <p class="card-text text-center">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -536,9 +661,11 @@ Now we have to connect base template with list and detail template.
           </div>
         <div class="card-block">
           <h4 class="card-title text-center">Blueberry Cookie Cupcake</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 5
-          </button></p>
+          <p class="card-text text-center">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -546,6 +673,7 @@ Now we have to connect base template with list and detail template.
     </div>
   </div>
 {% endblock %}
+
 
 ```
 
@@ -570,17 +698,44 @@ Now we have to connect base template with list and detail template.
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
           <div class="card">
         <ul class="list-group">
-          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  Chocolate Cupcake</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  <strong>Chocolate Cupcake</strong></li>
           <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span> 3.00</li>
-          <li class="list-group-item"><span class="glyphicon glyphicon-star"></span> 5</li>
           <li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> John</li>
           <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> 3rd June, 2015</li>
-          <li class="list-group-item">  <a href="#" class="btn btn-primary btn-block">Order</a></li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+          </li>
+          <li class="list-group-item">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Order
+            </button>
+             </li>
         </ul>
       </div>
     </div>
     </div>
   </div>
+  <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Chocolate Cupcake</h4>
+      </div>
+      <div class="modal-body">
+        Complete this website to get your Cupcake!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 ```

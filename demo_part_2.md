@@ -25,7 +25,23 @@ b. We will use Django Template Tags to add data from our queryset to template. W
 `list.html`
 
 ``` html
-<div class="container">
+{% extends 'menu/base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron title text-center" style="background-image: url({% static 'menu/images/cupcake_cover.jpg' %});">
+      <h1 class="title">Cupcakes and High Fives!</h1>
+      <p>Django Girls Seoul welcomes you!</p>
+      <p>Lets build an awesome Django site together</p>
+      <p>
+        <a class="btn btn-lg btn-primary" href="https://github.com/DjangoGirlsSeoul/djangocupcakeshop" role="button">Source Code &raquo;</a>
+      </p>
+    </div>
+
+  </div> <!-- /container -->
+
+  <div class="container">
     {% if cakes %}
     <h2 class="text-center">Choose your favorite Cupcake!</h2>
     <div class="row">
@@ -36,10 +52,11 @@ b. We will use Django Template Tags to add data from our queryset to template. W
           <div class="image" style="background-image: url({{ cake.image.url }});"></div>
         </div>
         <div class="card-block">
+
           <h4 class="card-title text-center">{{ cake.name }}</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ cake.rating }}
-          </button></p>
+          <p class="card-text text-center">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </p>
           <a href="#" class="btn btn-default btn-lg btn-block">View</a>
         </div>
         </div>
@@ -50,12 +67,69 @@ b. We will use Django Template Tags to add data from our queryset to template. W
     <h2 class="text-center">No Cupcakes added yet -:(</h2>
     {% endif %}
   </div>
+{% endblock %}
 
 ```
 Start development server again and visit home page to see the cupcakes from your database appear in template :)
 
+c. We have one problem that we have to address here. As you can see that `only` one star appears for rating. Django Template doesn't allow usage of complex Python functions in template such as `range`. We have to make a custom Django Template filter for looping over rating count and add number of stars based on it. We are going to create a custom `Django Template Filter`. You can read more about it [here](https://docs.djangoproject.com/en/1.9/howto/custom-template-tags/).
+
+For this purpose, we will create a `templatetags` directory in the same folder with `models.py` and 'views.py'. Don't forget to add `__init__.py` empty file in it. Create a file `menu_extras.py` in `templatetags` folder.
+
+Following should be your directory structure.
+
+```bash
+
+menu/
+    __init__.py
+    models.py
+    templatetags/
+        __init__.py
+        menu_extras.py
+    views.py
+    
+```
+
+Add following contents to `menu_extras.py`
+
+```python
+from django import template
+
+register = template.Library()
+
+@register.filter
+def get_range(value):
+    """
+     Filter - returns a list containing range made from given value
+     Usage (in template):
+    """
+    return range(int(value))
+
+
+```
+
+and in your template `list.html`, add following after `{% load staticfiles %}`
+
+```html
+{% load menu_extras %}
+```
+
+One last thing left is to add a for loop using our new custom filter. Replace existing `rating` html with following.
+
+`list.html`
+
+```html
+<p class="card-text text-center">
+   {% for i in cake.rating|get_range %}
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+   {% endfor %}
+</p>
+
+```
 ![](orm_cupcakes.png)
 
+
+Start development server again and visit home page to see the cupcakes from your database appear in template :)
 
 a. 쿼리셋
 b. menu 목록 템플릿 보여주기
