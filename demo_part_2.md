@@ -126,8 +126,8 @@ One last thing left is to add a for loop using our new custom filter. Replace ex
 </p>
 
 ```
-![](orm_cupcakes.png)
 
+![](orm_cupcakes.png)
 
 Start development server again and visit home page to see the cupcakes from your database appear in template :)
 
@@ -155,7 +155,6 @@ from django.shortcuts import render, get_object_or_404
 def cupcake_detail(request,pk):
     cake = get_object_or_404(Cupcake,pk=pk)
     context = {"cake": cake}
-    print(cake)
     return render(request,"menu/detail.html",context)
 
 ```
@@ -169,34 +168,70 @@ b. There are two more things we have to do before we can see the cupcake detail 
 
 The mysterious `{% url 'cupcake_detail' pk=cake.pk %}` will take us to the view function `cupcake_detail` which in turn will show us the detail page! 
 
-Seondly, we are going to add template tags in `detail.html` for showing the cupcake from database.
+Seondly, we are going to add template tags and custom filter in `detail.html` for showing the cupcake from database.
 
 ```html
-<div class="container">
-    {% if cakes %}
-    <h2 class="text-center">Choose your favorite Cupcake!</h2>
+{% extends 'menu/base.html' %}
+{% load staticfiles %}
+{% load menu_extras %}
+{% block content %}
+  <div class="container">
+    {% if cake %}
+    <h2 class="text-center">Order Cupcake</h2>
     <div class="row">
-      {% for cake in cakes %}
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-md-offset-2 col-md-lg-2">
         <div class="card">
         <div class="card-img-top">
           <div class="image" style="background-image: url({{ cake.image.url }});"></div>
         </div>
-        <div class="card-block">
-          <h4 class="card-title text-center">{{ cake.name }}</h4>
-          <p class="card-text text-center"><button type="button" class="btn btn-primary btn-lg">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ cake.rating }}
-          </button></p>
-          <a href="{% url 'cupcake_detail' pk=cake.pk %}" class="btn btn-default btn-lg btn-block">View</a>
-        </div>
         </div>
       </div>
-      {% endfor %}
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+          <div class="card">
+        <ul class="list-group">
+          <li class="list-group-item"><span class="glyphicon glyphicon-tag"></span>  <strong>Chocolate Cupcake</strong></li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-usd"></span> 3.00</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> John</li>
+          <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> 3rd June, 2015</li>
+          <li class="list-group-item">
+            {% for i in cake.rating|get_range %}
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            {% endfor %}
+          </li>
+          <li class="list-group-item">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+              Order
+            </button>
+             </li>
+        </ul>
+      </div>
+    </div>
     </div>
     {% else %}
-    <h2 class="text-center">No Cupcakes added yet -:(</h2>
+    <h2 class="text-center">No Cupcake found :(</h2>
     {% endif %}
   </div>
+  <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ cake.name }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Order completed 주문 완료됬었습니다!</p>
+        <p>{% now "jS F Y H:i" %}</p>
+        <p>Price : {{ cake.price }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 ```
 Start development server again, and click on `view` button in home page to see detail page. Here is one example below 
 
