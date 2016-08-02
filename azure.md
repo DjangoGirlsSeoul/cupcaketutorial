@@ -7,8 +7,9 @@ English Tutorial : [https://jinpark-dg.gitbooks.io/django-girls-azure/content/](
 Korean Tutorial : [https://github.com/askdjango/azure-webapp-django-setup](https://github.com/askdjango/azure-webapp-django-setup)
 
 #TO-DO (English)
-After you are done with step 1 of English [Tutorial]([https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/))
-1. In `web.config` file replace the following contents 
+After you are done with **Before we start** part of English [Tutorial]([https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/))
+### web.config
+In `web.config` file replace the following contents 
 
 ```python
 <add key="DJANGO_SETTINGS_MODULE" value="mysite.settings" />
@@ -36,7 +37,9 @@ Pillow==3.0.0
 
 ```
 
-2. We have to slightly change our `settings.py` to allow Azure site in `ALLOWED_HOSTS` as follows
+## settings.py
+
+We have to slightly change our `settings.py` to allow Azure site in `ALLOWED_HOSTS` as follows
 
 ```python
 
@@ -47,7 +50,10 @@ else:
     
 ```
 
-3. There is one more thing we have to do. That is to add `Environment variables` as we did on PythonAnywhere. Click on `settings` of your Azure web app. Then click on Application settings. Go to `App settings` and add `DJANGO_DEBUG` and `SECRET_KEY` keys with their values. Make sure to press the save button. 
+ Go back to tutorial and finish all the **Deploying** steps
+
+### Environment variables
+There is one more thing we have to do. That is to add `Environment variables` as we did on PythonAnywhere. Click on `settings` of your Azure web app. Then click on Application settings. Go to `App settings` and add `DJANGO_DEBUG` and `SECRET_KEY` keys with their values. Make sure to press the save button. 
 
 ![](azure_app_settings.png)
 
