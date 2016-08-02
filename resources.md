@@ -3,6 +3,10 @@
 ## English 
 * Resources for learning Python Programming language [[link](https://medium.com/djangogirlsseoul-codecamp/resources-for-learning-python-programming-language-f8639b0d525d)]
 
+## 장고걸스서울 월례 세미나
+---
+* 자료 링크 Presentation material [[Link](https://github.com/djangogirlsseoul/seminar)]
+
 ## 자료 창고
 
 다들 아시죠?
