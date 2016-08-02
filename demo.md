@@ -91,6 +91,8 @@ $ python manage.py startapp menu```
 
 b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by `pip install Pillow` and then update requirements file by `pip freeze > requirements.txt`
 
+>If there is an error in Windows installation while installing Pillow. Use `pip install Pillow==3.0.0`
+
 The import part will go first 
 
 ```python
