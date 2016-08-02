@@ -15,11 +15,11 @@ Before starting our project we setup virtual environment, activate it and then i
  
 가상환경 사용하고 장고 설치하기 
 
-```pip install django``` 
+```$ pip install django``` 
 
 그리고 `requirements.txt` 이렇게 만들기 
 
-```pip freeze > requirements.txt```
+```$ pip freeze > requirements.txt```
 
 ## Step 2 (Start Project/프로젝트 시작하기)
  Start Django project 
