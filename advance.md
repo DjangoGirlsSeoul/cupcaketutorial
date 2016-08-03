@@ -7,3 +7,5 @@
 3- Change database to mySQL
 
 4- Custom Admin 
+
+5- Travis CI and Coveralls (If time available)

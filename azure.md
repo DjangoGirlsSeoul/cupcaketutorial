@@ -3,11 +3,14 @@
 
 Azure is Microsoft's cloud server. We can deploy our Cupcake site on Azure too. You can create a free account and try out Azure. Our coaches have already prepared a step-by-step guide for deploying a Django site on Azure.
 
-English Tutorial : [https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/)
-Korean Tutorial : [https://github.com/askdjango/azure-webapp-django-setup](https://github.com/askdjango/azure-webapp-django-setup)
+1. English Tutorial : [https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/)
+
+1. Korean Tutorial : [https://github.com/askdjango/azure-webapp-django-setup](https://github.com/askdjango/azure-webapp-django-setup)
+
 
 #TO-DO (English)
-After you are done with **Before we start** part of English [Tutorial]([https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/))
+After you are done with **Before we start** part of English [Tutorial]([https://jinpark-dg.gitbooks.io/django-girls-azure/content/](https://jinpark-dg.gitbooks.io/django-girls-azure/content/). Make some changes as below
+
 ### web.config
 In `web.config` file replace the following contents 
 

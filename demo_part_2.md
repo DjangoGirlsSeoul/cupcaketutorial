@@ -12,7 +12,8 @@ def cupcake_list(request):
     cakes = Cupcake.objects.all().order_by('-createdAt')
     context = {"cakes": cakes}
     return render(request,"menu/list.html",context)
-    ```
+    
+```
 
 Above query `Cupcake.objects.all().order_by('-createdAt')` will fetch all the cupcakes from the database in descending order with respect to `createdAt`.
 
@@ -25,6 +26,7 @@ b. We will use Django Template Tags to add data from our queryset to template. W
 `list.html`
 
 ``` html
+
 {% extends 'menu/base.html' %}
 {% load staticfiles %}
 {% block content %}
@@ -528,8 +530,12 @@ We're all done! Hit the big green Reload button and you'll be able to go view yo
 
 
 ## Step 13 Homework (숙제)
-a. Show cupcakes by `highest` and `lowest` rating
-b. Show cupcakes by `highest` and `lowest` price
+
+a. Sort cupcakes by `highest` and `lowest` price
+
+> Hint : Make a url like `cupcakes/price/hightolow`, add a corresponding view function. Get the data from Database, convert price `string` to int and sort using python. You can use the same template `list.html` for this homework. 
+
+b. Sort cupcakes by `highest` rating
 
 a. '점수' 목록 배열하기
 b. '가격' 목록 배열하기

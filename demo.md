@@ -46,11 +46,16 @@ After creating the project, we have to change `TIME_ZONE` in `settings.py` file.
 TIME_ZONE = "Asia/Seoul"
 ```
 
-To setup the correct configuration for static files (images, css, javascript), add the following line below `STATIC_URL`.
+To setup the correct configuration for static and media files (images, css, javascript), add the following lines below `STATIC_URL`.
 
 ```python
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 ```
+
+>MEDIA_ROOT and MEDIA_URL setup the path for uploaded images and files.
+
 
 `settings.py`에서 `TIME_ZONE`있는 줄을 찾으세요. 그리고 이를 해당 시간대로 변경하세요 
 
@@ -93,15 +98,51 @@ a. We create the app name `menu` and add it to `settings.py` file in the section
 $ manage.py startapp menu
 ```
 
+`settings.py`
+
+```python
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'menu',
+)
+
+```
+
 a. menu 어플리케이션 제작하기 
 
 ``` bash 
 $ python manage.py startapp menu
 ```
 
+```python
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'menu',
+)
+
+```
 #### Demo starts from here
 
-b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by `pip install Pillow` and then update requirements file by `pip freeze > requirements.txt`
+b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by executing 
+
+```bash 
+(myvenv) $ pip install Pillow
+```
+and then update requirements file by 
+
+```bash
+(myvenv) $ pip freeze > requirements.txt
+```
 
 >If there is an error in Windows installation while installing Pillow. Use `pip install Pillow==3.0.0`
 
@@ -128,13 +169,15 @@ class Cupcake(models.Model):
 
     def __str__(self):
         return self.name
-        
-        ```
+```
+
  c. After creating model, we create actual tables in database by  executing following commands 
  
  ```bash
+ 
  $ python manage.py makemigrations menu
  $ python manage.py migrate
+ 
  ``` 
  
  > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
@@ -159,7 +202,7 @@ class Cupcake(models.Model):
     def __str__(self):
         return self.name
         
-     ```
+```
 
 c. 데이터베이스에 모델을 위한 테이블 만들기 `python manage.py makemigrations menu` 그리고 `python manage.py migrate` 실행하세요
 
