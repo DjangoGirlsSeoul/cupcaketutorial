@@ -5,7 +5,8 @@
 Before starting our project we setup virtual environment, activate it and then install django using 
  
  ```bash 
- $ pip install django```
+ $ pip install django
+ ```
  
  Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
  
@@ -15,17 +16,22 @@ Before starting our project we setup virtual environment, activate it and then i
  
 가상환경 사용하고 장고 설치하기 
 
-```$ pip install django``` 
+```bash
+$ pip install django
+``` 
 
 그리고 `requirements.txt` 이렇게 만들기 
 
-```$ pip freeze > requirements.txt```
+```bash
+$ pip freeze > requirements.txt
+```
 
 ## Step 2 (Start Project/프로젝트 시작하기)
  Start Django project 
  
  ```bash
- $ django-admin startproject djangocupcakeshop```
+ $ django-admin startproject djangocupcakeshop
+ ```
  
  Django 프로젝트 시작하기 
  
@@ -36,11 +42,15 @@ Before starting our project we setup virtual environment, activate it and then i
 ## Step 3 (Change Settings/설정 변경)
 After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
 
-```TIME_ZONE = "Asia/Seoul"```
+```python 
+TIME_ZONE = "Asia/Seoul"
+```
 
 To setup the correct configuration for static files (images, css, javascript), add the following line below `STATIC_URL`.
 
-```STATIC_ROOT = os.path.join(BASE_DIR, 'static')```
+```python
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+```
 
 `settings.py`에서 `TIME_ZONE`있는 줄을 찾으세요. 그리고 이를 해당 시간대로 변경하세요 
 
@@ -80,12 +90,14 @@ $ python manage.py runserver
 a. We create the app name `menu` and add it to `settings.py` file in the section `INSTALLED_APPS`
 
 ```bash 
-python manage.py startapp menu```
+$ manage.py startapp menu
+```
 
 a. menu 어플리케이션 제작하기 
 
 ``` bash 
-$ python manage.py startapp menu```
+$ python manage.py startapp menu
+```
 
 #### Demo starts from here
 
@@ -96,13 +108,16 @@ b. We are going to create a model for our menu app. From here onwards, start fol
 The import part will go first 
 
 ```python
+
 from django.contrib.auth.models import User
 from django.utils import timezone
+
 ```
 
 followed by model Class
 
 ```python
+
 class Cupcake(models.Model):
     name = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
@@ -132,6 +147,7 @@ b. `Cupcake` 글 모델 만들기 속성:
 `name,rating,price,image,writer and createdAt` fields
 
 ```python
+
 class Cupcake(models.Model):
     name = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
@@ -143,7 +159,7 @@ class Cupcake(models.Model):
     def __str__(self):
         return self.name
         
-        ```
+     ```
 
 c. 데이터베이스에 모델을 위한 테이블 만들기 `python manage.py makemigrations menu` 그리고 `python manage.py migrate` 실행하세요
 
