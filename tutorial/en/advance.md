@@ -1,23 +1,22 @@
 # Advance
 
 ## Login and Register
-Login and signup are an essential part of websites nowadays. Django comes with a default [user authentication system](https://docs.djangoproject.com/en/1.9/topics/auth/). You can also extend and customize it! We are going to add signup and login page to our website.
+Login and signup are an essential part of websites nowadays. Django comes with a default [user authentication system](https://docs.djangoproject.com/en/1.9/topics/auth/). You can also extend and customize it! We are going to add signup and login page to our website. 
 
-For this purpose we create a new app `accounts`.
+For this purpose we create a new app `accounts`. 
 
 ```bash
 $ python manage.py startapp accounts
 ```
 and keep all the logic related to login and signup there. Add the app `accounts` in `INSTALLED_APPS` (settings.py)
 
-We will start implementing the login functionality as we have created a superuser already so we can test it right away.
+We will start implementing the login functionality as we have created a superuser already so we can test it right away. 
 
 Add following `url` to point all the auth related links to `accounts.url`
 
 `djangocupcakeshop.urls.py`
 
 ```python
-
 url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 ```
 
@@ -45,7 +44,7 @@ This will include the following URL patterns:
 ^reset/done/$ [name='password_reset_complete']
 
 ```
-For our tutorial, we are going to use `login,logout` and create a `registration` page.
+For our tutorial, we are going to use `login,logout` and create a `registration` page. 
 
 The default login url should have a template  `registration/login.html`. So we create a new directory `registration` in `accounts` directory. In the `registration` directory create a `login.html` file with the following contents.
 
@@ -104,7 +103,7 @@ The default login url should have a template  `registration/login.html`. So we c
 
 ```
 
-Start developement server and visit [http://127.0.0.1/accounts/login](http://127.0.0.1/accounts/login) . After logging in, you will encounter an error, because we haven't setup view and template for profile page. Let's create a `profile.html` page in `registration` directory
+Start developement server and visit [http://127.0.0.1/accounts/login](http://127.0.0.1/accounts/login) . After logging in, you will encounter an error, because we haven't setup view and template for profile page. Let's create a `profile.html` page in `registration` directory 
 
 `profile.html`
 
@@ -157,7 +156,7 @@ def user_profile(request):
 
 ```
 
-We haven't added login and signup links in our `base.html` template yet. After adding login and singup links, our `base.html` will look like following.
+We haven't added login and signup links in our `base.html` template yet. After adding login and singup links, our `base.html` will look like following. 
 
 ```html
 
@@ -298,10 +297,10 @@ Add link to register page in `base.html` template
 <a href="{% url "accounts:register" %}" class="btn btn-primary navbar-btn">Register</a>
 ```
 
-Secondly, add a view function `register` to handle register get/post request.
+Secondly, add a view function `register` to handle register get/post request. 
 
 `accounts/views.py`
-Add the following import lines
+Add the following import lines 
 
 ```python
 from django.http import HttpResponseRedirect
@@ -309,7 +308,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
 ```
 
-followed by
+followed by 
 
 ```python
 def register(request):
@@ -333,7 +332,7 @@ def register(request):
 
 ```
 
-> Django provides a default `UserCreationForm` which only includes username and password. If you want to add email, first and last name as required paramaters, then you should created a custom form.
+> Django provides a default `UserCreationForm` which only includes username and password. If you want to add email, first and last name as required paramaters, then you should created a custom form. 
 
 Start development server and test login and register functions.
 
@@ -357,7 +356,7 @@ def logout_view(request):
 
 Start development server and test logout feature.
 
-Under ideal circumstances everything works! But we are still going to write tests for our login and register page :)
+Under ideal circumstances everything works! But we are still going to write tests for our login and register page :) 
 
 `tests.py`
 
@@ -400,14 +399,14 @@ class Register(TestCase):
 
 ```
 
-You can check tests locally by executing
+You can check tests locally by executing 
 
 ```bash
 $ python manage.py test accounts
 ```
-##Comments
+##Comments 
 
-If you are wondering how delicious or awesome our Cupcake is ? We have to allow registereted users to express about it via comments.
+If you are wondering how delicious or awesome our Cupcake is ? We have to allow registereted users to express about it via comments. 
 
 #### Create Comment model
 A simple comment would have an associated user and cupcake. We are also going to moderate comments and let admin approve it :)
@@ -431,7 +430,7 @@ class Comment(models.Model):
 
 ```
 
-For creating the tables in database, execute following two commands.
+For creating the tables in database, execute following two commands. 
 
 ```bash
 $ python manage.py makemigrations menu
@@ -460,7 +459,7 @@ admin.site.register(Comment)
 
 Let's add a form for users to write comments. We have created a Comment model already. Now we are going to create a CommentForm. open `forms.py` and add following code.
 
-> import Comment
+> import Comment 
 
 ```python
 
@@ -544,14 +543,64 @@ def cupcake_detail(request,pk):
 
 >For demo purposes we are marking all comments as approved.
 
-Start development server, view any cupcake and try the comment feature :)
+Start development server, view any cupcake and try the comment feature :) 
 
 ![](comments.png)
 
 > Tip : After you deploy your site on PythonAnywhere or Azure again with Comment feature. You have to execute migrate command!
 
-3- Change database to mySQL
+## Change database to mySQL
 
-4- Custom Admin
+## Custom Admin 
 
-5- Travis CI and Coveralls (If time available)
+## Travis CI and Coveralls (If time available)
+
+Running tests before every commit and merge can be little tedious. 
+> Thankfully, Continuous Integration can save the day. Continuous Integration, often abbreviated to just CI, is the process of automatically building and running tests whenever a change is committed.
+
+We are going to use Travis-CI which is free for open-source projects. Signup for free account on https://travis-ci.org using your Github account. Sync your github repos and enable TRAVIS-CI for project. 
+
+![](travis_1.png)
+
+Create a file `.travis.yml` in project root directory. Before adding any contents to file. let's complete the signup process for https://coveralls.io. Once you signedup successfully, you can add Github repo.
+
+>Coveralls is a web service to help you track your code coverage over time, and ensure that all your new code is fully covered.
+
+![](coveralls.png)
+
+Add following contents to your `.travis.yml` file.
+
+```bash
+language: python
+python:
+  - '3.5'
+branches:
+  only:
+    - 'advance'
+    - 'rest-api'
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script:
+  - python manage.py test
+  - coverage run --source=djangocupcakeshop,menu,accounts manage.py test
+notifications:
+  email: false
+after_success:
+  coveralls
+
+```
+
+Make sure to add/change `branches` field. In our case, we are adding advance and rest-api branches only.
+
+Let's add nice badges for showing status of build and coverage in our README. Add markup from Travis and Coveralls to your project's RADME.md. Here is one sample
+
+[![Build Status](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop.svg?branch=advance)](https://travis-ci.org/DjangoGirlsSeoul/djangocupcakeshop)
+[![Coverage Status](https://coveralls.io/repos/github/DjangoGirlsSeoul/djangocupcakeshop/badge.svg?branch=advance)](https://coveralls.io/github/DjangoGirlsSeoul/djangocupcakeshop?branch=advance)
+
+Now commit your changes and push to Github. It will automatically initiate a travis-cui build and coverage test. You can find similar reports as below
+
+![](travis_ci_build.png)
+
+
+![](coveralls_report.png)

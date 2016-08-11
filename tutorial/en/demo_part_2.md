@@ -1,5 +1,5 @@
 # Demo Part 2
-## Step 9 Dynamic data in Templates with ORM [템플릿의 동적 데이터](http://tutorial.djangogirls.org/en/dynamic_data_in_templates/#dynamic-data-in-templates)
+## Step 9 Dynamic data in Templates with ORM
 >relevant git branch `orm`
 
 a. Get Dynamic data (cupcakes) from database using queryset. Add following code in `menu/views.py` in `cupcake_list` function.
@@ -133,10 +133,8 @@ One last thing left is to add a for loop using our new custom filter. Replace ex
 
 Start development server again and visit home page to see the cupcakes from your database appear in template :)
 
-a. 쿼리셋
-b. menu 목록 템플릿 보여주기
 
-## Step 10 Extend your Application 프로그램 어플리케이션 확장하기
+## Step 10 Extend your Application
 > Relevant branch `extend-app`
 
 a. Until now we have properly configured the `list.html` template. You can see posts added from admin on homepage. Good job! Now we want user to see more details about a `Cupcake` once they click the View Button.  We will go back to the basics and repeat the steps we did for configuring `list.html` template.
@@ -239,10 +237,9 @@ Start development server again, and click on `view` button in home page to see d
 
 ![](extend_detail.png)
 
-a. menu에 템플릿 링크 만들기 그리고 menu 상세 페이지에 뷰 추가하기
 
 
-## Step 11 (Django Forms 폼)
+## Step 11 Django Forms
 > Relevant branch `forms`
 
 The final thing we want to do on our website is create a nice way to add cupcakes by registered users. Django's admin is cool, but it is rather hard to customize and make pretty. With forms we will have absolute power over our interface - we can do almost anything we can imagine!
@@ -372,7 +369,7 @@ Congrats :) We are almost done with development of our site!
 
 Finally, it's time to have cupcake. There is one more thing that we have to do. So hang in there...
     
-## Step 12 Deploy your site on PythonAnywhere [배포하기](http://tutorial.djangogirls.org/ko/deploy/#github에서-pythonanywhere로-코드-가져오기)
+## Step 12 Deploy your site on PythonAnywhere
 
 > Relevant branch `deploy`
 
@@ -537,10 +534,9 @@ a. Sort cupcakes by `highest` and `lowest` price
 
 b. Sort cupcakes by `highest` rating
 
-a. '점수' 목록 배열하기
-b. '가격' 목록 배열하기
 
+## Remarks
 
-
+If you have reached this far! Well done and Congrats :) You can move to [Advance](advance.md) part, if you have enough left-over time :)
 
 

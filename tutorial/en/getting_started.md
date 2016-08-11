@@ -1,12 +1,12 @@
-# Getting Started 시작하기
+# Getting Started
 
-## Fork and clone this repository for Tutorial 이 튜토리얼을 찍고 내 리퍼지토리로 복사하세요.
+## Fork and clone this repository for Tutorial
 
-Press the fork button on the top right at this [link](https://github.com/djangogirlscodecamp/djangocupcakeshop) 오른쪽 위에 있는 Fork 버튼을 누른다
+Press the fork button on the top right at this [link](https://github.com/djangogirlscodecamp/djangocupcakeshop).
 
 ![](fork_djangocupcakeshop.png)
 
-Use git clone to copy code on your computer. git clone 사용하여 
+Use git clone to copy code on your computer.
 
 ![](clone_djangocupcake.png)
 
@@ -35,14 +35,6 @@ $ python3 -m venv myvenv
 $ virtualenv --python=python3.4 myvenv
 ```
 
-가상환경을 만든다.아래 command 콘솔에 치면 된다.
-#### 윈도우의 경우 
-```C:\Python35\python -m venv myvenv``` 
-#### 맥의 경우 
-```python3 -m venv myvenv ```
-리눅스의 경우 : 
-```virtualenv --python=python3.4 myvenv```
-
 Activate virtual environment by using 
 #### windows
 ```bash
@@ -63,32 +55,11 @@ Install django by executing this command
 $ pip install -r requirements.txt
 ```
 
-가상환경을 활성화 시킨다. 
-
-#### 윈도우의 경우: 
-```bash
-myvenv\Scripts\activate 
-``` 
-
-### 맥이나 리눅스의 경우: 
-
-```bash
-$ source myvenv/bin/activate
-``` 
-
-치고, 요구되는 사항들을 옆의 명령어를 통해 설치한다. 
-
-```bash
-$ pip install -r requirements.txt
-```
-
 Make database by executing the following command
 
 ```bash
 $ python manage.py migrate
 ```
 
-`python manage.py migrate` 통해 데이터 베이스를 만든다.
-
 Follow step 4(b) from [demo section](https://djangogirlsseoul.gitbooks.io/-djangocupcakeshop/content/demo.html) onwards
-[데모를 4(b)](https://djangogirlsseoul.gitbooks.io/-djangocupcakeshop/content/demo.html) 단계 부터 따라한다.
+
