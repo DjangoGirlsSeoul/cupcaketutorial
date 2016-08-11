@@ -41,7 +41,7 @@ The primary language will be **English**, however the tutorial itself is availab
 장고에 입문하시는 여러분들을 환영합니다. 좀더 나은 실습환경을 위해 미리 파이썬, 장고, 코드 에디터를 설치하고 오세요. 다음 링크 [[영어](http://tutorial.djangogirls.org/en/installation/), [한국어](https://djangogirlsseoul.gitbooks.io/tutorial/content/installation/)]을 참고하세요. 어느정도 하루정도 장고걸스튜토리얼를 해보신 분들을 진행되니 사전에 장고 공식 튜토리얼, 파이썬 기초 등을 학습하시고 오셔도 좋습니다.
 튜로리얼 진행은 **영어로** 진행 합니다.
 
-### Specific Goals for this tutorial
+### Specific Goals for this tutorial (Basic)
 - The learners should be able to use a virtual environment correctly before starting any Django project.
 - The learners should be able to use an ImageField in model.
 - The leaners should be able understand the admin role in Django.
@@ -50,6 +50,15 @@ The primary language will be **English**, however the tutorial itself is availab
 - The learners should be able to use Git/Github basic commands for adding their project on github
 - The learners should be able to deploy their site on PythonAnywhere server with debug turned off.
 - The learners should be able to write simple tests for their Django site.
+
+### Advance
+
+If you have prior Django or Web experience and want to challenge yourself, then advance tutorial is for you!. It covers various topics which as are follows:
+* Django Auth (Login and Signup)
+* Django Model Relationships (Comments)
+* Django Rest-framework
+* Continuous Integration and coverage test (Travis-CI and Coveralls).
+* Micrsoft's `Azure` deployment guide.
 
 ### 튜토리얼의 목적
 - 장고프로젝트를 시작하기 전에 가상환경을 올바른 방법으로 다룰 수 있습니다.

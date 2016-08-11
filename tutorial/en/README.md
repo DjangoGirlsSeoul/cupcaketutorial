@@ -8,14 +8,14 @@
 ## Translation
 >This tutorial is translated to Korean by Django Girls Seoul Organizers.
 
-> Translators : [Sujin Lee 이수진](http://sujinlee.me/), [Soeun Lee 
+> Translators : [Sujin Lee 이수진](http://sujinlee.me/), [Soeun Lee
 > 이소은](https://github.com/mojosoeun)
 
-## Coaches/Helpers 
+## Coaches/Helpers
 
 > Django Girls Seoul Coaches & Organizers
 
-Hassan Abid, Jin Park, Soeun Lee, Sujin Lee, Joeun Park, Minseon Kim, Downy Song, John Choi, Jiho Jang 
+Hassan Abid, Jin Park, Soeun Lee, Sujin Lee, Joeun Park, Minseon Kim, Downy Song, John Choi, Jiho Jang
 
 ## What will you learn from this tutorial?
 This tutorial will walk you through all the steps in creating a cupcake menu site. By the end, you'll be confident enough to make your website!
@@ -38,7 +38,7 @@ While beginners are welcome for this tutorial, we recommend installing Python, D
 
 The primary language will be **English**, however the tutorial itself is available in Korean!  Please bring your computer with battery fully charged!
 
-### Specific Goals for this tutorial
+### Specific Goals for this tutorial (Basic)
 - The learners should be able to use a virtual environment correctly before starting any Django project.
 - The learners should be able to use an ImageField in model.
 - The leaners should be able understand the admin role in Django.
@@ -48,7 +48,15 @@ The primary language will be **English**, however the tutorial itself is availab
 - The learners should be able to deploy their site on PythonAnywhere server with debug turned off.
 - The learners should be able to write simple tests for their Django site.
 
+### Advance
+
+If you have prior Django or Web experience and want to challenge yourself, then advance tutorial is for you!. It covers various topics which as are follows:
+* Django Auth (Login and Signup)
+* Django Model Relationships (Comments)
+* Django Rest-framework
+* Continuous Integration and coverage test (Travis-CI and Coveralls).
+* Micrsoft's `Azure` deployment guide.
+
 ### Detailed Steps
 
 Follow along with tutor for step by step guide
-
