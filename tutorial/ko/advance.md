@@ -1,18 +1,19 @@
-# Advance
+# 심화 (Advance)
 
-## Login and Register
-Login and signup are an essential part of websites nowadays. Django comes with a default [user authentication system](https://docs.djangoproject.com/en/1.9/topics/auth/). You can also extend and customize it! We are going to add signup and login page to our website.
+## 1. 로그인 및 가입하기 기능 만들기
+로그인, 가입하기 기능은 꼭 필요한 기능입니다. 장고는 기본적으로 [user authentication system](https://docs.djangoproject.com/en/1.9/topics/auth/)이 있어요. 또 커스터마이징할 수 있어요! 우리 웹사이트에 로그인과 가입하기 기능을 넣어봅시다.
 
-For this purpose we create a new app `accounts`.
+이를 위해 `accounts`이라는 새 앱을 만듭시다.
 
 ```bash
 $ python manage.py startapp accounts
 ```
-and keep all the logic related to login and signup there. Add the app `accounts` in `INSTALLED_APPS` (settings.py)
+그리고 이 앱에 앞으로 로그인과 가입하기에 필요한 모든 것들을 넣을 거에요. `INSTALLED_APPS` (settings.py)에 `accounts`를 추가하세요.
 
-We will start implementing the login functionality as we have created a superuser already so we can test it right away.
+이미 슈퍼유저가 생성이 되어 있기 때문에 바로 로그인 기능이 잘 구현되었는지 테스트할 수 있습니다.
 
-Add following `url` to point all the auth related links to `accounts.url`
+그리고 `url`을 수정해야하는데, 아래처럼 `accounts.url`에 모든 `auth`관련 링크가 다 연결되도록 해주세요.
+
 
 `djangocupcakeshop.urls.py`
 
@@ -21,7 +22,7 @@ Add following `url` to point all the auth related links to `accounts.url`
 url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 ```
 
-Create a file `urls.py` in `accounts` directory. Add the following code to it.
+`accounts` 디렉터리에 `urls.py`을 생성하고 아래처럼 코드를 수정해주세요.
 
 ```python
 from django.conf.urls import include, url
@@ -32,7 +33,7 @@ urlpatterns = [
 ]
 
 ```
-This will include the following URL patterns:
+아래 URL패턴을 사용할 수 있어요.
 
 ```bash
 ^login/$ [name='login']
@@ -45,9 +46,10 @@ This will include the following URL patterns:
 ^reset/done/$ [name='password_reset_complete']
 
 ```
-For our tutorial, we are going to use `login,logout` and create a `registration` page.
+이제 `로그인, 로그아웃`을 만들어 볼 차례에요. `등록하기`페이지를 만들어야겠죠.
 
-The default login url should have a template  `registration/login.html`. So we create a new directory `registration` in `accounts` directory. In the `registration` directory create a `login.html` file with the following contents.
+디폴트 로그인 url은 `registration/login.html`템플릿을 꼭 가지고 있어야해요.
+이제 `accounts` 디렉터리안에 `registration`이라는 새 디렉터리를 만드세요. 그리고 `registration`디렉터리 안에 `login.html`파일을 만들고 아래 내용을 추가하세요.
 
 ```html
 
@@ -104,7 +106,7 @@ The default login url should have a template  `registration/login.html`. So we c
 
 ```
 
-Start developement server and visit [http://127.0.0.1/accounts/login](http://127.0.0.1/accounts/login) . After logging in, you will encounter an error, because we haven't setup view and template for profile page. Let's create a `profile.html` page in `registration` directory
+서버를 재실행하고 [http://127.0.0.1/accounts/login](http://127.0.0.1/accounts/login)에 접속해보세요. 로그인 후, 에러가 보일 거에요. 왜냐하면 프로필 페이지의 뷰와 템플릿을 만들지 않았기 때문이에요. 이제 `registration`디렉터리 안에 `profile.html`페이지를 만들어 봅시다.
 
 `profile.html`
 
@@ -142,7 +144,7 @@ Start developement server and visit [http://127.0.0.1/accounts/login](http://127
 
 ```
 
-As you can notice from the template, that it contains the cupcakes added by user. We have to add a view function for user profile. Go ahead and add the following code to accounts app's `views.py` file.
+템플에서 확인하실 수 있듯이, 사용자가 컵케익을 선택할 수 있어요. 사용자 계정을 위해 view 함수를 추가해야합니다. `views.py`에서 아래 내용을 추가하세요.
 
 ```python
 from django.shortcuts import render
@@ -157,7 +159,7 @@ def user_profile(request):
 
 ```
 
-We haven't added login and signup links in our `base.html` template yet. After adding login and singup links, our `base.html` will look like following.
+`base.html`템플릿안에 로그인과 가입하기 링크를 아직 추가하지 않았는데요. 링크를 추가한 `base.html` 코드는 아래와 같을 겁니다.
 
 ```html
 
@@ -231,7 +233,7 @@ We haven't added login and signup links in our `base.html` template yet. After a
 
 ```
 
-Start development server and test login. Next step would be to add a register page. For this purpose we have to do a little more than what we did for login. Firstly of all, let's create a register template in the same folder with `profile.html` and `login.html`.
+개발 서버를 재 실행하고 로그인이 잘 작동되는지 테스트해보세요. 다음으로 등록 페이지를 만들어 볼 텐데요. 로그인 기능을 만든 것 보다 좀 더 많은 작업을 해야합니다. 가장 먼저 `profile.html`과 `login.html` 파일이 있는 같은 폴더 내에 `register.html`을 생성하세요.
 
 `register.html`
 
@@ -292,7 +294,7 @@ Start development server and test login. Next step would be to add a register pa
 
 ```
 
-Add link to register page in `base.html` template
+`base.html`템플릿에 등록하기 페이지 링크를 추가하세요.
 
 ```html
 <a href="{% url "accounts:register" %}" class="btn btn-primary navbar-btn">Register</a>
@@ -333,19 +335,19 @@ def register(request):
 
 ```
 
-> Django provides a default `UserCreationForm` which only includes username and password. If you want to add email, first and last name as required paramaters, then you should created a custom form.
+> 장고는 기본적으로 유저이름과 비밀번호가 포함된 `UserCreationForm`을 제공합니다. 사용자의 이메일, 성과 이름을 필수값으로 추가하고 싶다면, custom form을 만들어야 합니다.
 
-Start development server and test login and register functions.
+서버를 재 실행하여 로그인과 등록하기 기능이 잘 작동하는지 확인하세요.
 
-You might observe that `logout` link takes us to admin logout link. Let's override the default and take user to home page after logging out.
+지금 `logout(로그아웃)`링크를 클릭하면 관리자 로그아웃 링크로 연결되는 것을 볼 수 있을 텐데요. 기본값을 수정해 사용자가 로그아웃 이후에 홈페이지로 갈 수 있도록 수정해봅시다.
 
-Add following code to `accounts/urls.py`
+`accounts/urls.py`에 아래 코드로 수정하세요.
 
 ```python
 url('^logout/$',views.logout_view,name="logout"),
 ```
 
-and corresponding view function to `accounts/views.py`
+그리고 `accounts/views.py`에 아래 뷰 함수를 추가하세요.
 
 ```python
 from django.contrib.auth import logout
@@ -355,9 +357,9 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 ```
 
-Start development server and test logout feature.
+서버를 실행해 로그아웃 기능이 잘 작동하는지 확인해보세요.
 
-Under ideal circumstances everything works! But we are still going to write tests for our login and register page :)
+이제 우리가 생각했던 기능들이 모두 잘 작동하고 있네요! 이제 로그인과 가입하기 페이지가 잘 되는지 테스트해 봐야겠죠?.
 
 `tests.py`
 
@@ -400,19 +402,19 @@ class Register(TestCase):
 
 ```
 
-You can check tests locally by executing
+아래처럼 테스트 코드를 실행해 볼 수 있어요.
 
 ```bash
 $ python manage.py test accounts
 ```
-##Comments
+## 2. 댓글 기능 만들기
 
-If you are wondering how delicious or awesome our Cupcake is ? We have to allow registereted users to express about it via comments.
+메뉴에 있는 컵케이크 맛은 어떤지 궁금하지 않나요? 먹어본 다른 사용자들의 리뷰 궁금하죠? 댓글 기능을 추가해 다른 사용자가 리뷰를 남길 수 있게 해볼 거에요.
 
-#### Create Comment model
-A simple comment would have an associated user and cupcake. We are also going to moderate comments and let admin approve it :)
+#### 댓글 모델 생성하기
+컵케이크에 대해 사용자가 간단한 댓글을 남길 수 있게 만들어 봅시다. 나중에 관리자가 댓글을 승인할 수 있도록 만들 수도 있어요 :)
 
-Create a comment model class in `menu/models.py` file.
+`menu/models.py`파일에 댓글 모델을 만들어 봅시다.
 
 ```python
 class Comment(models.Model):
@@ -431,7 +433,7 @@ class Comment(models.Model):
 
 ```
 
-For creating the tables in database, execute following two commands.
+데이터베이스에 새 테이블을 만들기 위해 아래 명령어를 실행하세요.
 
 ```bash
 $ python manage.py makemigrations menu
@@ -439,26 +441,24 @@ $ python manage.py makemigrations menu
 $ $ python manage.py migrate menu
 ```
 
-#### Register Comment model in Admin
+#### 관리자에 댓글 모델 만들기
 
-Open `menu/admin.py` and import Comment model class
+`menu/admin.py`파일을 열어보세요. 이제 우리는 댓글 모델 클래스를 모두 가져와야합니다.
 
 ```python
-
 from .models import Cupcake, Comment
 ```
 
-and register the comment model by adding the following line.
-
+그리고 아래 내용을 comment 모델에 등록해야합니다.
 ```python
 admin.site.register(Comment)
 
 
 ```
 
-#### Let users write comments
+#### 사용자가 댓글을 작성하게 만들기
 
-Let's add a form for users to write comments. We have created a Comment model already. Now we are going to create a CommentForm. open `forms.py` and add following code.
+사용자가 댓글을 작성하게 폼을 만들어봅시다. 이미 앞에서 댓글 모델을 만들었는데요. 이제 작성할 수 있는 CommentForm을 만들어야합니다. `forms.py`파일을 열고 아래 코드를 추가하세요.
 
 > import Comment
 
@@ -471,7 +471,7 @@ class CommentForm(forms.ModelForm):
         fields = ('text',)
 ```
 
-Add following to `menu/templates/menu/detail.html` just above the `endblock`.
+`menu/templates/menu/detail.html` 파일을 열고  `endblock`바로 위에 아래 내용을 추가하세요.
 
 ```html
 
@@ -518,7 +518,8 @@ Add following to `menu/templates/menu/detail.html` just above the `endblock`.
 
 ```
 
-Modify the view function `cupcake_detail` in `menu/views.py` to include the CommentForm. After modifying your code should like the following.
+CommentForm을 추가하기 위해 `menu/views.py`파일 내 `cupcake_detail`함수를 수정합니다.
+수정한 코드는 아래와 같을 거에요.
 
 ```python
 from .forms import CommentForm
@@ -542,16 +543,16 @@ def cupcake_detail(request,pk):
 
 ```
 
->For demo purposes we are marking all comments as approved.
+> 위의 코드는 모든 댓글을 승인하도록 만들었습니다.
 
-Start development server, view any cupcake and try the comment feature :)
+서버를 실행해, 컵케이크 페이지 내 댓글 기능이 잘 작동하는지 확인해보세요 :)
 
 ![](comments.png)
 
-> Tip : After you deploy your site on PythonAnywhere or Azure again with Comment feature. You have to execute migrate command!
+> Tip :  PythonAnywhere 또는 Azure 배포한다음 댓글 기능을 다시 테스트 해보세요. `migrate`명령어를 사용해야 합니다!
 
-3- Change database to mySQL
+3- mySQL로 데이터베이스 변경하기
 
-4- Custom Admin
+4- Admin 커스터마이징하기
 
-5- Travis CI and Coveralls (If time available)
+5- Travis CI과 Coveralls (시간이 허락된다면!)
