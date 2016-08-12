@@ -1,40 +1,33 @@
-# Demo Part 1
-## Step 1 Installation
+# 데모
+## Step 1. 설치하기
 
-Make sure that you have installed Python 3.5.x, Git and Editor (atom,sublime text or visual code).
-Before starting our project we setup virtual environment, activate it and then install django using
+파이썬 3.5.x, Git, 코드에디터(atom,sublime text, visual code 중 하나)가 반드시 설치되어야 합니다.
+프로젝트 시작 전 가상환경을 설치하고 실행시키세요. 그리고 아래 명령어를 입력해 django를 설치합니다.
 
  ```bash
  $ pip install django
  ```
 
- Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
+장고나 다른 패키지를 설치할 때는 `requirements.txt` 파일을 생성해 설치 버전을 저장해 놓는 것이 좋습니다.
 
  ```bash
  $ pip freeze > requirements.txt
  ```
 
-## Step 2 Start Project
- Start Django project
+## Step 2. 프로젝트 시작하기
+이제 `djangocupcakeshop` 장고 프로젝트를 시작해봅시다.
 
  ```bash
  $ django-admin startproject djangocupcakeshop
  ```
 
- Django 프로젝트 시작하기
-
- ```bash
- $ django-admin startproject djangocupcakeshop
- ```
-
-## Step 3 Change Settings
-After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
+## Step 3. 설정 변경하기
+프로젝트를 생성하고나서 `settings.py`에 있는 `TIME_ZONE`을 변경해야 합니다. `djangocupcakeshop/djangocupcakeshop/settings.py`에서 `TIME_ZONE`을 찾아 변경하세요. 웹 사이트가 어디서 호운영(host)되고 있는지 알려주는 거랍니다. 서울이라면, 아래처럼 변경해주세요.
 
 ```python
 TIME_ZONE = "Asia/Seoul"
 ```
-
-To setup the correct configuration for static and media files (images, css, javascript), add the following lines below `STATIC_URL`.
+`STATIC_URL` 부분 아래에 동적파일과 미디어파일(images, css, javascript) 경로도 아래처럼 설정해주세요.
 
 ```python
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -42,7 +35,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ```
 
->MEDIA_ROOT and MEDIA_URL setup the path for uploaded images and files.
+>MEDIA_ROOT와 MEDIA_URL설정 경로는 이미지와 파일들이 저장되는 경로를 말합니다.
 
 
 We are all set for creating our database tables and checking our project in the browser. Run the following two commands in terminal/command prompt.
@@ -53,12 +46,12 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
-Open the browser and go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8000)
+브라우저를 열고 다음 링크로 접속하세요. : [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ![](step_3_runserver.png)
 
 
-## Step 4 Django App/Model
+## Step 4. Django App/Model
 > Relevant git branch `model`
 
 a. We create the app name `menu` and add it to `settings.py` file in the section `INSTALLED_APPS`
@@ -82,7 +75,7 @@ INSTALLED_APPS = (
 
 ```
 
-#### Demo starts from here
+#### Demo. starts from here
 
 b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by executing
 
@@ -136,7 +129,7 @@ class Cupcake(models.Model):
  > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
 
 
-## Step 5 Django Admin
+## Step 5. Django 관리자
 > Relevant git branch `admin`
 
 a. Register our model in admin so that we can add cupcakes from admin site. Open `menu/admin.py` file and add the following.
@@ -160,7 +153,7 @@ Start developement server again `python manage.py runserver`. Visit [http://127.
 ![](admin_2_add.png)
 
 
-## Step 6 Django Urls
+## Step 6. Django Urls
 > Relevant git branch `django-urls`
 
 a. We have to point a url towards our home page. Firstly, we will point the home page URL to our menu app. Add following to `djangocupcakeshop/urls.py`.
