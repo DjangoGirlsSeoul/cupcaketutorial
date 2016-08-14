@@ -1,7 +1,7 @@
 # Advance
 This tutorial covers Django Auth, Django Model Relations, Continuous Integration (CI) and coverage test, MySQL DB and custom admin
 
-## Login and Register
+## 1. Login and Register
 Login and signup are an essential part of websites nowadays. Django comes with a default [user authentication system](https://docs.djangoproject.com/en/1.9/topics/auth/). You can also extend and customize it! We are going to add signup and login page to our website.
 
 For this purpose we create a new app `accounts`.
@@ -15,7 +15,7 @@ We will start implementing the login functionality as we have created a superuse
 
 Add following `url` to point all the auth related links to `accounts.url`
 
-`djangocupcakeshop.urls.py`
+`djangocupcakeshop/urls.py`
 
 ```python
 url(r'^accounts/', include('accounts.urls', namespace="accounts")),
@@ -405,7 +405,7 @@ You can check tests locally by executing
 ```bash
 $ python manage.py test accounts
 ```
-##Comments
+## 2. Comments
 
 If you are wondering how delicious or awesome our Cupcake is ? We have to allow registereted users to express about it via comments.
 
@@ -550,7 +550,7 @@ Start development server, view any cupcake and try the comment feature :)
 
 > Tip : After you deploy your site on PythonAnywhere or Azure again with Comment feature. You have to execute migrate command!
 
-## Travis CI and Coveralls (If time available)
+## 3. Travis CI and Coveralls
 
 Running tests before every commit and merge can be little tedious.
 > Thankfully, Continuous Integration can save the day. Continuous Integration, often abbreviated to just CI, is the process of automatically building and running tests whenever a change is committed.
@@ -602,8 +602,23 @@ Now commit your changes and push to Github. It will automatically initiate a tra
 
 ![](coveralls_report.png)
 
-## Change database to MySQL
-To-be-added soon
+## 4. Change database to MySQL
+You can use other databases like Postgres or MySQL, below is the settings for MySQL.
 
-## Custom Admin
-To-be-added soon
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+````
+You have to install `mysqlclient` to use it.
+
+## 5. Custom Admin
+You can cusotmize the Django admin.  Refer to [official tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial07/) guide for some examples.

@@ -604,7 +604,22 @@ Now commit your changes and push to Github. It will automatically initiate a tra
 ![](coveralls_report.png)
 
 ## 4. Change database to MySQL
-To-be-added soon
+You can use other databases like Postgres or MySQL, below is the settings for MySQL.
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+````
+You have to install `mysqlclient` to use it.
 
 ## 5. Custom Admin
-To-be-added soon
+You can cusotmize the Django admin.  Refer to [official tutorial](https://docs.djangoproject.com/en/1.10/intro/tutorial07/) guide for some examples.
