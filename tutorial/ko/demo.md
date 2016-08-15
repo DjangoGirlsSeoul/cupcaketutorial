@@ -22,7 +22,34 @@
  ```
 
 ## Step 3. 설정 변경하기
-프로젝트를 생성하고나서 `settings.py`에 있는 `TIME_ZONE`을 변경해야 합니다. `djangocupcakeshop/djangocupcakeshop/settings.py`에서 `TIME_ZONE`을 찾아 변경하세요. 웹 사이트가 어디서 호운영(host)되고 있는지 알려주는 거랍니다. 서울이라면, 아래처럼 변경해주세요.
+프로젝트를 생성하고나서 `settings.py`에 있는 `TIME_ZONE`을 변경해야 합니다. `djangocupcakeshop/djangocupcakeshop/settings.py`에서 `TIME_ZONE`을 찾아 변경하세요. 웹 사이트가 어디서 운영(host)되고 있는지 알려주는 거랍니다. 서울이라면, 아래처럼 변경해주세요.
+
+
+ ```bash
+ $ pip install django
+ ```
+
+ Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
+
+ ```bash
+ $ pip freeze > requirements.txt
+ ```
+
+## Step 2 Start Project
+ Start Django project
+
+ ```bash
+ $ django-admin startproject djangocupcakeshop
+ ```
+
+ Django 프로젝트 시작하기
+
+ ```bash
+ $ django-admin startproject djangocupcakeshop
+ ```
+
+## Step 3 Change Settings
+After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
 
 ```python
 TIME_ZONE = "Asia/Seoul"
@@ -46,6 +73,7 @@ $ python manage.py runserver
 ```
 
 브라우저를 열고 다음 링크로 접속하세요. : [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
 
 ![](step_3_runserver.png)
 
@@ -116,15 +144,22 @@ class Cupcake(models.Model):
 
  c. 모델을 생성한 후에, 아래 명령어를 실행해 실제 데이터 베이스를 생성합니다.
 
+
  ```bash
 
  $ python manage.py makemigrations menu
  $ python manage.py migrate
 
+
  ```
 
  > makemigrations을 실행하면, 장고에게 모델에 수정할 것이 있는지 확인하라고 말해주는 것입니다. (이 경우에, 새로운 모델이 생성이 되었다는 것을 알려줍니다) 그리고 수정 내용을 migration하게 됩니다.
 
+
+ ```
+
+ > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
+>>>>>>> 0d638dce3cef986977c116ae84a0d7be7979cb8f
  > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
  > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
 

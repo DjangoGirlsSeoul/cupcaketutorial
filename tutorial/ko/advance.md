@@ -554,6 +554,7 @@ def cupcake_detail(request,pk):
 ## 3. Travis CI와 Coveralls
 
 코멘트를 커밋하기 전에 테스트를 하고 그 다음에 머지 하세요.
+
 > Thankfully, Continuous Integration can save the day. Continuous Integration, often abbreviated to just CI, is the process of automatically building and running tests whenever a change is committed.
 
 We are going to use Travis-CI which is free for open-source projects. Signup for free account on https://travis-ci.org using your Github account. Sync your github repos and enable TRAVIS-CI for project.
