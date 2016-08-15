@@ -1,28 +1,28 @@
 # Demo Part 1
 ## Step 1 Installation
 
-Make sure that you have installed Python 3.5.x, Git and Editor (atom,sublime text or visual code).
-Before starting our project we setup virtual environment, activate it and then install django using
-
- ```bash
+Make sure that you have installed Python 3.5.x, Git and Editor (atom,sublime text or visual code). 
+Before starting our project we setup virtual environment, activate it and then install django using 
+ 
+ ```bash 
  $ pip install django
  ```
-
+ 
  Once we install django and any other required package, it is good idea to save that in a `requirements.txt` file.
-
+ 
  ```bash
  $ pip freeze > requirements.txt
  ```
-
+ 
 ## Step 2 Start Project
- Start Django project
-
+ Start Django project 
+ 
  ```bash
  $ django-admin startproject djangocupcakeshop
  ```
-
- Django 프로젝트 시작하기
-
+ 
+ Django 프로젝트 시작하기 
+ 
  ```bash
  $ django-admin startproject djangocupcakeshop
  ```
@@ -30,7 +30,7 @@ Before starting our project we setup virtual environment, activate it and then i
 ## Step 3 Change Settings
 After creating the project, we have to change `TIME_ZONE` in `settings.py` file. You can find it under `djangocupcakeshop/djangocupcakeshop/settings.py` folder. It depends on where your site is hosted. For Seoul, we will change it the following.
 
-```python
+```python 
 TIME_ZONE = "Asia/Seoul"
 ```
 
@@ -52,7 +52,7 @@ $ python manage.py migrate
 
 $ python manage.py runserver
 ```
-
+   
 Open the browser and go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ![](step_3_runserver.png)
@@ -63,7 +63,7 @@ Open the browser and go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8
 
 a. We create the app name `menu` and add it to `settings.py` file in the section `INSTALLED_APPS`
 
-```bash
+```bash 
 $ manage.py startapp menu
 ```
 
@@ -84,12 +84,12 @@ INSTALLED_APPS = (
 
 #### Demo starts from here
 
-b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by executing
+b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by executing 
 
-```bash
+```bash 
 (myvenv) $ pip install Pillow
 ```
-and then update requirements file by
+and then update requirements file by 
 
 ```bash
 (myvenv) $ pip freeze > requirements.txt
@@ -97,7 +97,7 @@ and then update requirements file by
 
 >If there is an error in Windows installation while installing Pillow. Use `pip install Pillow==3.0.0`
 
-The import part will go first
+The import part will go first 
 
 ```python
 
@@ -122,15 +122,15 @@ class Cupcake(models.Model):
         return self.name
 ```
 
- c. After creating model, we create actual tables in database by  executing following commands
-
+ c. After creating model, we create actual tables in database by  executing following commands 
+ 
  ```bash
-
+ 
  $ python manage.py makemigrations menu
  $ python manage.py migrate
-
- ```
-
+ 
+ ``` 
+ 
  > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
  > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
  > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
@@ -165,7 +165,7 @@ Start developement server again `python manage.py runserver`. Visit [http://127.
 
 a. We have to point a url towards our home page. Firstly, we will point the home page URL to our menu app. Add following to `djangocupcakeshop/urls.py`.
 
-```python
+```python 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('menu.urls')),
@@ -338,7 +338,7 @@ Within the templates directory you have just created, create another directory c
 </html>
 
 ```
-We also need a css file for minor adjustments in the template. Create  file `style.css` in `menu/static/menu/css` folder. Add following contents to css file
+We also need a css file for minor adjustments in the template. Create  file `style.css` in `menu/static/menu/css` folder. Add following contents to css file 
 `style.css`
 
 ```css
@@ -409,13 +409,13 @@ a {
   color: #FF5252;
 }
 
-
+ 
 ```
 In `menu/static/images` folder, add three cupcakes images and make sure that names are same as the ones in `list.html` file.
 
 b. We have to create a detail page for our `cupcake` where we can show more information such as price and user who uploaded it. Let's create a `detail.html` in the same folder as `list.html`
 
-```html
+```html 
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -511,7 +511,7 @@ b. We have to create a detail page for our `cupcake` where we can show more info
 
 ```
 
-C. We can observe that both `list.html` and `base.html` share lots of common html such as header and footer. Django allows us to create `base` template and extend other templates from it. Create a `base.html` in same folder with `list.html`. And put the `list.html` contents in it. Delete the part from `<div class="container">` until just before the `footer` and replace with
+C. We can observe that both `list.html` and `base.html` share lots of common html such as header and footer. Django allows us to create `base` template and extend other templates from it. Create a `base.html` in same folder with `list.html`. And put the `list.html` contents in it. Delete the part from `<div class="container">` until just before the `footer` and replace with 
 
 ```python
   {% block content %}
@@ -580,7 +580,7 @@ After replacing, your `base.html` will look like as follows :
 
 ```
 
-Now we have to connect base template with list and detail template.
+Now we have to connect base template with list and detail template. 
 
 ``` list.html ```
 
@@ -726,6 +726,6 @@ Now we have to connect base template with list and detail template.
 
 ```
 
-Start developement server go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8000) to see the list template!
+Start developement server go to the link : [http://127.0.0.1:8000](http://127.0.0.1:8000) to see the list template! 
 
 **Move to next part of [Demo](demo_part_2.md)**
