@@ -20,7 +20,7 @@ Mac/Linux 환경에서는 terminal, window 환경에서는 prompt을 열고 djan
 ```C:\Python35\python -m venv myvenv``` 
 #### 맥의 경우 
 ```python3 -m venv myvenv ```
-리눅스의 경우 : 
+#### 리눅스의 경우 : 
 ```virtualenv --python=python3.4 myvenv```
 
 가상환경을 활성화 시켜 볼까요? 
