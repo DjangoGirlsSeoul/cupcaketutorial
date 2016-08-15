@@ -37,8 +37,7 @@ MEDIA_URL = '/media/'
 
 >MEDIA_ROOT와 MEDIA_URL설정 경로는 이미지와 파일들이 저장되는 경로를 말합니다.
 
-
-We are all set for creating our database tables and checking our project in the browser. Run the following two commands in terminal/command prompt.
+테이터베이스 테이블을 생성했고 브라우저에 프로젝트가 보이는지 확인합시다. 터미널/프롬트프에서 아래 두 명령어를 실행하세요.
 
 ``` bash
 $ python manage.py migrate
@@ -54,7 +53,7 @@ $ python manage.py runserver
 ## Step 4. Django App/Model
 > Relevant git branch `model`
 
-a. We create the app name `menu` and add it to `settings.py` file in the section `INSTALLED_APPS`
+a. `menu`앱을 만들고 `settings.py`의 `INSTALLED_APPS`에 새로운 앱을 추가하세요.
 
 ```bash
 $ manage.py startapp menu
@@ -75,9 +74,9 @@ INSTALLED_APPS = (
 
 ```
 
-#### Demo. starts from here
+#### Demo. 여기서부터 시작하세요.
 
-b. We are going to create a model for our menu app. From here onwards, start following me on and refer to tutorial for references. The required fields for our model class `Cupcake` are `name,rating,price,image,writer and createdAt`. You also have to install `Pillow` package which is required for `ImageField`. so install it by executing
+b. 메뉴 앱 모델를 생성해봅시다. 여기서부터는 튜토리얼 그대로 따라하세요. `Cupcake`에 필요한 것은 `이름(name), 평가(rating), 가격(price), 이미지(image), 작성자(writer), 작성일(createdAt)`의 정보입니다. 이미지필드(`ImageField`)에서 필요한 것은 `Pillow`패키지가 설치되어야합니다. 아래 명령어를 실행해 설치합시다.
 
 ```bash
 (myvenv) $ pip install Pillow
@@ -88,9 +87,9 @@ and then update requirements file by
 (myvenv) $ pip freeze > requirements.txt
 ```
 
->If there is an error in Windows installation while installing Pillow. Use `pip install Pillow==3.0.0`
+> 윈도우에서 Pillow가 설치 시 에러가 발생하면, `pip install Pillow==3.0.0`를 사용하세요.
 
-The import part will go first
+먼저 import 합시다.
 
 ```python
 
@@ -99,7 +98,7 @@ from django.utils import timezone
 
 ```
 
-followed by model Class
+아래 Cupcake 클래스를 그대로 따라해 봅시다.
 
 ```python
 
@@ -115,7 +114,7 @@ class Cupcake(models.Model):
         return self.name
 ```
 
- c. After creating model, we create actual tables in database by  executing following commands
+ c. 모델을 생성한 후에, 아래 명령어를 실행해 실제 데이터 베이스를 생성합니다.
 
  ```bash
 
@@ -124,7 +123,8 @@ class Cupcake(models.Model):
 
  ```
 
- > By running makemigrations, you’re telling Django that you’ve made some changes to your models (in this case, you’ve made new ones) and that you’d like the changes to be stored as a migration.
+ > makemigrations을 실행하면, 장고에게 모델에 수정할 것이 있는지 확인하라고 말해주는 것입니다. (이 경우에, 새로운 모델이 생성이 되었다는 것을 알려줍니다) 그리고 수정 내용을 migration하게 됩니다.
+
  > At this point after `makemigrations` you can test your model by executing `python manage.py test`. We have provided a test case already for your convenience!
  > In Summary `makemigrations` command make migrations for changes in model and `migrate` actually applies those changes in database
 
@@ -132,7 +132,7 @@ class Cupcake(models.Model):
 ## Step 5. Django 관리자
 > Relevant git branch `admin`
 
-a. Register our model in admin so that we can add cupcakes from admin site. Open `menu/admin.py` file and add the following.
+a. 관리자에 모델을 추가해 관리자 사이트에서 컵케익을 등록할 수 있게 만듭시다. `menu/admin.py`파일을 열고 아래 내용을 추가하세요.
 
 ```python
 from django.contrib import admin
