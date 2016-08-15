@@ -2,8 +2,6 @@
 
 [link] (https://github.com/djangogirlscodecamp/djangocupcakeshop) 오른쪽 위에 있는 Fork 버튼을 누르고 git clone을 사용하여 여러분의 컴퓨터에 코드를 복사합니다!
 
-![](fork_djangocupcakeshop.png)
-
 ![](clone_djangocupcake.png)
 
 ```bash 
