@@ -2,9 +2,8 @@
 
 ## Fork and clone this repository for Tutorial
 
-Press the fork button on the top right at this [link](https://github.com/djangogirlscodecamp/djangocupcakeshop).
+Press the fork button on the top right at this [link](https://github.com/hassanabidpk/djangocupcakeshop).
 
-![](fork_djangocupcakeshop.png)
 
 Use git clone to copy code on your computer.
 
@@ -20,8 +19,6 @@ $ git clone https://github.com/<user_name>/djangocupcakeshop.git
 Open terminal (Mac/Linux) or command prompt (windows) and go to djangocupcakeshop folder 
 
 ```cd djangocupcakeshop ```
-
-`cd djangocupcakeshop` 치고 djangocupcakeshop 폴더 안으로 이동
 
 Create a virtual environment by using the command
 #### Windows:
